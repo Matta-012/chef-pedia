@@ -5,9 +5,10 @@ function LoginForm({
   loginInfo: { email, password },
   handleChange,
   isSubmitBtnDisabled,
+  handleFormSubmit,
 }) {
   return (
-    <form>
+    <form onSubmit={ handleFormSubmit }>
       <label htmlFor="email">
         E-mail
         <input
@@ -52,6 +53,7 @@ LoginForm.propTypes = {
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   isSubmitBtnDisabled: PropTypes.bool.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
