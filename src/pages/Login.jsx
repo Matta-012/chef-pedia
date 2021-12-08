@@ -1,31 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import LoginForm from '../components/LoginForm';
+
+const SIX = 6;
 
 export default function Login() {
+  const [loginInfo, setLoginInfo] = useState({ email: '', password: '' });
+  const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(true);
+
+  useEffect(() => {
+    const validateLogin = () => {
+      const { email, password } = loginInfo;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email) && password.length > SIX;
+    };
+    const isFormValid = validateLogin();
+
+    setIsSubmitBtnDisabled(!isFormValid);
+  }, [loginInfo]);
+
+  const handleLoginChange = ({ target: { value, id } }) => {
+    setLoginInfo((prevState) => ({ ...prevState, [id]: value }));
+  };
+
   return (
     <div className="login-form">
-      <form>
-        <label htmlFor="email">
-          E-mail
-          <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            data-testid="email-input"
-          />
-        </label>
-
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            id="password"
-            placeholder="Senha"
-            data-testid="password-input"
-          />
-        </label>
-
-        <button type="submit" data-testid="login-submit-btn">Entrar</button>
-      </form>
+      <LoginForm
+        loginInfo={ loginInfo }
+        handleChange={ handleLoginChange }
+        isSubmitBtnDisabled={ isSubmitBtnDisabled }
+      />
     </div>
   );
 }
