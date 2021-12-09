@@ -40,7 +40,10 @@ function Header({ history }) {
           </div>
         )
       }
-      <HeaderRadioSearch searchInputValue={ searchInput } />
+      <HeaderRadioSearch
+        searchInputValue={ searchInput }
+        history={ history }
+      />
     </header>
   );
 }
