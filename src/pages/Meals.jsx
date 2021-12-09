@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Meals({ history }) {
@@ -7,6 +8,7 @@ function Meals({ history }) {
     <div>
       <Header history={ history } />
       <h1 data-testid="page-title">Comidas</h1>
+      <Footer />
     </div>
   );
 }
@@ -14,7 +16,7 @@ function Meals({ history }) {
 Meals.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-  }),
-}.isrequired;
+  }).isRequired,
+};
 
 export default Meals;

@@ -1,13 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-function Perfil() {
+export default function ExploreMeals() {
   return (
     <div>
-      <h1 data-testid="page-title">Perfil</h1>
+      <h1>Explore Meals</h1>
       <Footer />
     </div>
   );
 }
-
-export default Perfil;
