@@ -10,21 +10,25 @@ export default function Footer() {
   return (
     <footer data-testid="footer">
       <nav className="footer-links">
-        <Link data-testid="food-bottom-btn" to="/comidas">
+        <Link to="/comidas">
           <div>
-            <img src={ mealIcon } alt="Icone Comidas" />
+            <img src={ mealIcon } alt="Icone Comidas" data-testid="food-bottom-btn" />
           </div>
         </Link>
 
-        <Link data-testid="drinks-bottom-btn" to="/bebidas">
+        <Link to="/bebidas">
           <div>
-            <img src={ drinkIcon } alt="Icone Bebidas" />
+            <img src={ drinkIcon } alt="Icone Bebidas" data-testid="drinks-bottom-btn" />
           </div>
         </Link>
 
-        <Link data-testid="explore-bottom-btn" to="/explorar">
+        <Link to="/explorar">
           <div>
-            <img src={ exploreIcon } alt="Icone Comidas" />
+            <img
+              src={ exploreIcon }
+              alt="Icone Explorar"
+              data-testid="explore-bottom-btn"
+            />
           </div>
         </Link>
       </nav>
