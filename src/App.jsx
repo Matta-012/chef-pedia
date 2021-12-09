@@ -4,7 +4,6 @@ import Login from './pages/Login';
 import Perfil from './pages/Perfil';
 import Meals from './pages/Meals';
 
-
 function App() {
   return (
     <Switch>
