@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import HeaderRadioSearch from './HeaderRadioSearch';
 
 function Header({ history }) {
   const [showSearchInput, setShowSearchInput] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
   const redirectToProfile = () => {
     history.push('/profile');
   };
@@ -25,16 +27,20 @@ function Header({ history }) {
       </button>
       {
         showSearchInput && (
-          <label htmlFor="search-input">
-            <input
-              type="text"
-              id="search-input"
-              placeholder="Pesquisar"
-              data-testid="search-input"
-            />
-          </label>
+          <div>
+            <label htmlFor="search-input">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Pesquisar"
+                data-testid="search-input"
+                onChange={ (e) => setSearchInput(e.target.value) }
+              />
+            </label>
+          </div>
         )
       }
+      <HeaderRadioSearch searchInputValue={ searchInput } />
     </header>
   );
 }
