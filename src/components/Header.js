@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 function Header({ history }) {
+  const [showSearchInput, setShowSearchInput] = useState(false);
   const redirectToProfile = () => {
     history.push('/profile');
   };
@@ -18,9 +19,22 @@ function Header({ history }) {
       <button
         data-testid="search-top-btn"
         type="button"
+        onClick={ () => setShowSearchInput(!showSearchInput) }
       >
         Pesquisar
       </button>
+      {
+        showSearchInput && (
+          <label htmlFor="search-input">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Pesquisar"
+              data-testid="search-input"
+            />
+          </label>
+        )
+      }
     </header>
   );
 }
