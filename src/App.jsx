@@ -6,7 +6,7 @@ import Meals from './pages/Meals';
 function App() {
   return (
     <Switch>
-      <Route path="/comidas/" component={ Meals } />
+      <Route path="/comidas" component={ Meals } />
       <Route path="/" component={ Login } />
     </Switch>
   );
