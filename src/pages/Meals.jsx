@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -16,9 +15,5 @@ function Meals() {
     </div>
   );
 }
-Meals.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-}.isrequired;
+
 export default Meals;

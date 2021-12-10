@@ -2,10 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Drinks from './pages/Drinks';
 import Explore from './pages/Explore';
-import ExploreMealsIngredients from './pages/ExploreMealsIngredients';
-import ExploreLocal from './pages/ExploreLocal';
-import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
-import FavoritesRecipes from './pages/FavoritesRecipes';
 import Login from './pages/Login';
 import MainRecipe from './pages/MainRecipe';
 import Meals from './pages/Meals';
@@ -13,6 +9,10 @@ import Profile from './pages/Profile';
 import RecipeMade from './pages/RecipeMade';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreDrinks from './pages/ExploreDrinks';
+import FavoritesRecipes from './pages/FavoritesRecipes';
+import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
+import ExploreMealsIngredients from './pages/ExploreMealsIngredients';
+import ExploreLocal from './pages/ExploreLocal';
 
 function App() {
   return (
