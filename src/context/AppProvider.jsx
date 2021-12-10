@@ -4,9 +4,10 @@ import AppContext from './AppContext';
 
 export default function AppProvider({ children }) {
   const [meals, setMeals] = useState([{}]);
+  const [drinks, setDrinks] = useState([{}]);
 
   return (
-    <AppContext.Provider value={ { meals, setMeals } }>
+    <AppContext.Provider value={ { meals, setMeals, drinks, setDrinks } }>
       { children }
     </AppContext.Provider>
   );
