@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Meals() {
   const { meals } = useContext(AppContext);
@@ -11,6 +12,7 @@ function Meals() {
       <Header />
       <h1 data-testid="page-title">Comidas</h1>
       {!meals && global.alert(alertMessage)}
+      <Footer />
     </div>
   );
 }
