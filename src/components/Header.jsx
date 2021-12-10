@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import HeaderRadioSearch from './HeaderRadioSearch';
 
-function Header({ history }) {
+function Header() {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+
+  const history = useHistory();
+
   const redirectToProfile = () => {
-    history.push('/profile');
+    history.push('/perfil');
   };
   return (
     <header>
@@ -42,7 +46,6 @@ function Header({ history }) {
       }
       <HeaderRadioSearch
         searchInputValue={ searchInput }
-        history={ history }
       />
     </header>
   );
