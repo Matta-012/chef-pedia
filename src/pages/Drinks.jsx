@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import Footer from '../components/Footer';
+import AppContext from '../context/AppContext';
+import Header from '../components/Header';
 
 function RecipeInProgress() {
+  const { drinks } = useContext(AppContext);
+  const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   return (
     <div>
-      Bebidas
+      <Header />
+      <h1>Bebidas</h1>
+      {!drinks && global.alert(alertMessage)}
+      <Footer />
     </div>
   );
 }

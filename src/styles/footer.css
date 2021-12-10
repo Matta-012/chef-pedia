@@ -1,0 +1,11 @@
+footer {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
