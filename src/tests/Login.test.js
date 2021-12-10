@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
+import AppProvider from '../context/AppProvider';
 
 const EMAIL_INPUT = 'email-input';
 const PASSWORD_INPUT = 'password-input';
@@ -87,7 +88,7 @@ describe('Realiza os testes da página de Login', () => {
 
   it(`6 - Testa se as chaves 'mealsToken' e 'cocktailsToken são salvas no
   localStorage após a submissão do formulário de Login' `, async () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<AppProvider><App /></AppProvider>);
 
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
@@ -112,7 +113,7 @@ describe('Realiza os testes da página de Login', () => {
   it(`7 - Testa se o email do usuário é salvo no localStorage com a 
   chave 'user', no formato 'email: email-da-pessoa',
   após a submissão do formulário de login`, async () => {
-    renderWithRouter(<App />);
+    renderWithRouter(<AppProvider><App /></AppProvider>);
 
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
@@ -134,7 +135,7 @@ describe('Realiza os testes da página de Login', () => {
 
   it(`8 - Testa se o usuário é redirecionado para a tela
   principal de receitas após a submissão do formulário de login`, () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<AppProvider><App /></AppProvider>);
 
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);

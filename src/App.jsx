@@ -9,6 +9,10 @@ import Profile from './pages/Profile';
 import RecipeMade from './pages/RecipeMade';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreDrinks from './pages/ExploreDrinks';
+import FavoritesRecipes from './pages/FavoritesRecipes';
+import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
+import ExploreMealsIngredients from './pages/ExploreMealsIngredients';
+import ExploreLocal from './pages/ExploreLocal';
 
 function App() {
   return (
