@@ -150,7 +150,7 @@ describe('15 - Busque na API de comidas caso a pessoa esteja na página de comid
   });
 });
 
-describe.skip('16 - Redirecione para a tela de detalhes da receita caso apenas uma receita seja encontrada, com o ID da mesma na URL', () => {
+describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma receita seja encontrada, com o ID da mesma na URL', () => {
   it('Caso apenas uma comida seja encontrada, deve-se ir para sua rota de detalhes', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {

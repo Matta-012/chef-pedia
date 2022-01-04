@@ -5,7 +5,7 @@ import AppContext from '../context/AppContext';
 
 function HeaderRadioSearch({ searchInputValue }) {
   const [radioValue, setRadioValue] = useState('');
-  const { setMeals, setDrinks } = useContext(AppContext);
+  const { setMeals, setDrinks, setFirstTime } = useContext(AppContext);
 
   const { pathname: location } = useLocation();
 
@@ -16,19 +16,37 @@ function HeaderRadioSearch({ searchInputValue }) {
   };
 
   const fetchFromAPI = async (URL) => {
-    if (location === '/comidas') {
-      const response = await fetch(`${URL}${searchInputValue}`);
-      const { meals } = await response.json();
-      setMeals(meals);
+    try {
+      if (location === '/comidas') {
+        const response = await fetch(`${URL}${searchInputValue}`);
+        const { meals } = await response.json();
+        if (meals) {
+          setMeals(meals);
+        } else {
+          setMeals([]);
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
-    if (location === '/bebidas') {
-      const response = await fetch(`${URL}${searchInputValue}`);
-      const { drinks } = await response.json();
-      setDrinks(drinks);
+
+    try {
+      if (location === '/bebidas') {
+        const response = await fetch(`${URL}${searchInputValue}`);
+        const { drinks } = await response.json();
+        if (drinks) {
+          setDrinks(drinks);
+        } else {
+          setDrinks([]);
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const handleExecSearchButton = () => {
+    setFirstTime();
     switch (radioValue) {
     case 'ingredient':
       fetchFromAPI(`https://www.${urlChanger}.com/api/json/v1/1/filter.php?i=`);
