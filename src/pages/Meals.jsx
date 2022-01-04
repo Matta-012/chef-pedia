@@ -13,6 +13,7 @@ function Meals() {
       <h1 data-testid="page-title">Comidas</h1>
       {meals.length === 0 && !firstTime && global.alert(alertMessage)}
       {meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+      {console.log(meals, firstTime)}
       <Footer />
     </div>
   );

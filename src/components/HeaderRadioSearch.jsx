@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
+import { fetchMeals, fetchDrinks } from '../helpers/fetchsFromAPI';
 
 function HeaderRadioSearch({ searchInputValue }) {
   const [radioValue, setRadioValue] = useState('');
@@ -15,39 +16,21 @@ function HeaderRadioSearch({ searchInputValue }) {
     setRadioValue(event.target.value);
   };
 
-  // Fazer o try...catch e redirecionar para uma página de erro 404 caso a requisição falhe
   const fetchFromAPI = async (URL) => {
-    try {
-      if (location === '/comidas') {
-        const response = await fetch(`${URL}${searchInputValue}`);
-        const { meals } = await response.json();
-        if (meals) {
-          setMeals(meals);
-        } else {
-          setMeals([]);
-        }
-      }
-    } catch (error) {
-      console.error(error);
+    if (location === '/comidas') {
+      const meals = await fetchMeals(URL, searchInputValue);
+      setMeals(meals);
+      setFirstTime(false);
     }
 
-    try {
-      if (location === '/bebidas') {
-        const response = await fetch(`${URL}${searchInputValue}`);
-        const { drinks } = await response.json();
-        if (drinks) {
-          setDrinks(drinks);
-        } else {
-          setDrinks([]);
-        }
-      }
-    } catch (error) {
-      console.error(error);
+    if (location === '/bebidas') {
+      const drinks = await fetchDrinks(URL, searchInputValue);
+      setDrinks(drinks);
+      setFirstTime(false);
     }
   };
 
   const handleExecSearchButton = () => {
-    setFirstTime();
     switch (radioValue) {
     case 'ingredient':
       fetchFromAPI(`https://www.${urlChanger}.com/api/json/v1/1/filter.php?i=`);
