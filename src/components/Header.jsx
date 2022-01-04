@@ -1,52 +1,65 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import HeaderRadioSearch from './HeaderRadioSearch';
+import profileIcon from '../images/profileIcon.svg';
+import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+  const [shouldDisplaySearchIcon, setShouldDisplaySearchIcon] = useState(true);
+  const location = useLocation();
 
-  const history = useHistory();
+  useEffect(() => {
+    if (
+      location.pathname === '/comidas'
+      || location.pathname === '/bebidas'
+      || location.pathname === '/explorar/comidas/area'
+    ) {
+      setShouldDisplaySearchIcon(true);
+    } else {
+      setShouldDisplaySearchIcon(false);
+    }
+  }, [location.pathname]);
 
-  const redirectToProfile = () => {
-    history.push('/perfil');
-  };
   return (
     <header>
       <h1 data-testid="page-title">Header</h1>
-      <button
-        data-testid="profile-top-btn"
-        type="button"
-        onClick={ redirectToProfile }
-      >
-        Perfil
-      </button>
-      <button
-        data-testid="search-top-btn"
-        type="button"
-        onClick={ () => setShowSearchInput(!showSearchInput) }
-      >
-        Pesquisar
-      </button>
-      {
-        showSearchInput && (
-          <div>
-            <label htmlFor="search-input">
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Pesquisar"
-                data-testid="search-input"
-                onChange={ (e) => setSearchInput(e.target.value) }
-              />
-            </label>
-          </div>
-        )
-      }
-      <HeaderRadioSearch
-        searchInputValue={ searchInput }
-      />
+      <Link to="/perfil">
+        <div>
+          <img
+            src={ profileIcon }
+            alt="Ícone de perfil"
+            data-testid="profile-top-btn"
+          />
+        </div>
+      </Link>
+      {shouldDisplaySearchIcon && (
+        <div>
+          <img
+            src={ searchIcon }
+            alt="Ícone de pesquisa"
+            data-testid="search-top-btn"
+            onClick={ () => setShowSearchInput(!showSearchInput) }
+            aria-hidden="true"
+          />
+        </div>
+      )}
+      {showSearchInput && (
+        <div>
+          <label htmlFor="search-input">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Pesquisar"
+              data-testid="search-input"
+              onChange={ (e) => setSearchInput(e.target.value) }
+            />
+          </label>
+        </div>
+      )}
+      <HeaderRadioSearch searchInputValue={ searchInput } />
     </header>
   );
 }

@@ -10,7 +10,7 @@ function RecipeInProgress() {
   return (
     <div>
       <Header />
-      <h1>Bebidas</h1>
+      <h1 data-testid="page-title">Bebidas</h1>
       {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
       {drinks.length === 1 && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Footer />

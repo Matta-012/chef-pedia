@@ -15,6 +15,10 @@ import FavoritesRecipes from './pages/FavoritesRecipes';
 import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreMealsIngredients from './pages/ExploreMealsIngredients';
 import ExploreLocal from './pages/ExploreLocal';
+import DrinksByID from './pages/DrinksByID';
+import MealsByID from './pages/MealsByID';
+import DrinksInProgress from './pages/DrinksInProgress';
+import MealsInProgress from './pages/MealsInProgress';
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
         path="/explorar/bebidas/ingredientes"
         component={ ExploreDrinksIngredients }
       />
+      <Route path="/comidas/:id/in-progress" component={ MealsInProgress } />
+      <Route path="/bebidas/:id/in-progress" component={ DrinksInProgress } />
+      <Route path="/comidas/:id" component={ MealsByID } />
+      <Route path="/bebidas/:id" component={ DrinksByID } />
       <Route path="/explorar/comidas" component={ ExploreMeals } />
       <Route path="/explorar/bebidas" component={ ExploreDrinks } />
       <Route path="/receitas-principais" component={ MainRecipe } />
