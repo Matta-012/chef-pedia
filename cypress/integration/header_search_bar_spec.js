@@ -182,7 +182,7 @@ describe('16 - Redirecione para a tela de detalhes da receita caso apenas uma re
   });
 });
 
-describe.skip('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
+describe('17 - Mostre as receitas em cards caso mais de uma receita seja encontrada', () => {
   it('Caso mais de uma comida seja encontrada, mostrar as 12 primeiras', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
