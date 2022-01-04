@@ -18,9 +18,5 @@ function Meals() {
     </div>
   );
 }
-Meals.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-}.isrequired;
+
 export default Meals;

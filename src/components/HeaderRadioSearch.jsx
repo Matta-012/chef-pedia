@@ -15,6 +15,7 @@ function HeaderRadioSearch({ searchInputValue }) {
     setRadioValue(event.target.value);
   };
 
+  // Fazer o try...catch e redirecionar para uma página de erro 404 caso a requisição falhe
   const fetchFromAPI = async (URL) => {
     try {
       if (location === '/comidas') {
