@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
@@ -18,9 +17,5 @@ function Meals() {
     </div>
   );
 }
-Meals.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
-}.isrequired;
+
 export default Meals;
