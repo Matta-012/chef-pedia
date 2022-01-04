@@ -9,7 +9,7 @@ function RecipeInProgress() {
   return (
     <div>
       <Header />
-      <h1>Bebidas</h1>
+      <h1 data-testid="page-title">Bebidas</h1>
       {!drinks && global.alert(alertMessage)}
       <Footer />
     </div>
