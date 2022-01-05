@@ -23,7 +23,7 @@ export default function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={ {
-        meals, setMeals, drinks, setDrinks, firstTime, setFirstTime,
+        meals, setMeals, drinks, setDrinks,
       } }
     >
       { children }
