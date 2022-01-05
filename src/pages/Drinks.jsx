@@ -8,11 +8,17 @@ import FilterCategory from '../components/FilterCategory';
 import { filterDrinksByCategory } from '../helpers/fetchesFromAPI';
 
 function Drinks() {
-  const { drinks, setDrinks, firstTime, categoriesDrinks } = useContext(AppContext);
+  const { drinks,
+    setDrinks,
+    firstTime,
+    categoriesDrinks,
+    currenteFilter,
+    setCurrentFilter } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
   const filterCategory = (category) => {
+    setCurrentFilter('category');
     filterDrinksByCategory(URL, category, setDrinks);
   };
 
@@ -20,7 +26,6 @@ function Drinks() {
     <div>
       <Header />
       <h1 data-testid="page-title">Bebidas</h1>
-      <h2>filtro</h2>
       <div>
         {categoriesDrinks.map((category) => (
           <FilterCategory
@@ -39,7 +44,9 @@ function Drinks() {
         />
       ))}
       {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
-      {drinks.length === 1 && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
+      {currenteFilter === 'radio'
+      && drinks.length === 1
+      && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Footer />
     </div>
   );

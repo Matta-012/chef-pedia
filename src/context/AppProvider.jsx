@@ -9,6 +9,9 @@ import { getSimpleListMeals,
 export default function AppProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [mealsBycategories, setMealsBycategories] = useState([]);
+  const [drinksBycategories, setDrinksBycategories] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState('');
   const [firstTime, setFirstTime] = useState(true);
   const [categoriesMeals, setCategoriesMeals] = useState([]);
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
@@ -41,6 +44,12 @@ export default function AppProvider({ children }) {
         setMeals,
         drinks,
         setDrinks,
+        mealsBycategories,
+        setMealsBycategories,
+        drinksBycategories,
+        setDrinksBycategories,
+        currentFilter,
+        setCurrentFilter,
         firstTime,
         setFirstTime,
         categoriesMeals,

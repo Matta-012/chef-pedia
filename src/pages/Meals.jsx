@@ -8,11 +8,17 @@ import FilterCategory from '../components/FilterCategory';
 import { filterMealsByCategory } from '../helpers/fetchesFromAPI';
 
 function Meals() {
-  const { meals, setMeals, firstTime, categoriesMeals } = useContext(AppContext);
+  const { meals,
+    setMeals,
+    firstTime,
+    categoriesMeals,
+    currenteFilter,
+    setCurrentFilter } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
   const filterCategory = (category) => {
+    setCurrentFilter('category');
     filterMealsByCategory(URL, category, setMeals);
   };
 
@@ -38,7 +44,8 @@ function Meals() {
         />
       ))}
       {meals.length === 0 && !firstTime && global.alert(alertMessage)}
-      {meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+      {currenteFilter === 'radio'
+      && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Footer />
     </div>
   );
