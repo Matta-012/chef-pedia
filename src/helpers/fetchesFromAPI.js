@@ -49,6 +49,20 @@ const getCategoryDrinks = async (setCategories, URL) => {
   setCategories(limit);
 };
 
+const filterDrinksByCategory = async (URL, category, setDrinks) => {
+  const response = await fetch(`${URL}${category}`);
+  const results = await response.json();
+  const limit = results.drinks.slice(0, LIST_LIMIT);
+  setDrinks(limit);
+};
+
+const filterMealsByCategory = async (URL, category, setMeals) => {
+  const response = await fetch(`${URL}${category}`);
+  const results = await response.json();
+  const limit = results.meals.slice(0, LIST_LIMIT);
+  setMeals(limit);
+};
+
 export {
   fetchMeals,
   fetchDrinks,
@@ -56,4 +70,6 @@ export {
   getSimpleListDrinks,
   getCategoryMeals,
   getCategoryDrinks,
+  filterDrinksByCategory,
+  filterMealsByCategory,
 };

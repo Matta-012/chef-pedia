@@ -4,7 +4,7 @@ import AppContext from './AppContext';
 import { getSimpleListMeals,
   getSimpleListDrinks,
   getCategoryMeals,
-  getCategoryDrinks } from '../helpers/fetchsFromAPI';
+  getCategoryDrinks } from '../helpers/fetchesFromAPI';
 
 export default function AppProvider({ children }) {
   const [meals, setMeals] = useState([]);

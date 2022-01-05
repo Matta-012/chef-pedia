@@ -5,10 +5,16 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
+import { filterMealsByCategory } from '../helpers/fetchesFromAPI';
 
 function Meals() {
-  const { meals, firstTime, categoriesMeals } = useContext(AppContext);
+  const { meals, setMeals, firstTime, categoriesMeals } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+  const URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+
+  const filterCategory = (category) => {
+    filterMealsByCategory(URL, category, setMeals);
+  };
 
   return (
     <div>
@@ -19,6 +25,7 @@ function Meals() {
           <FilterCategory
             key={ category.strCategory }
             categoryName={ category.strCategory }
+            filterCategory={ filterCategory }
           />
         ))}
       </div>
