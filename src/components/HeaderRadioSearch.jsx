@@ -2,11 +2,11 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
-import { fetchMeals, fetchDrinks } from '../helpers/fetchsFromAPI';
+import { fetchMeals, fetchDrinks } from '../helpers/fetchesFromAPI';
 
 function HeaderRadioSearch({ searchInputValue }) {
   const [radioValue, setRadioValue] = useState('');
-  const { setMeals, setDrinks, setFirstTime } = useContext(AppContext);
+  const { setMeals, setDrinks, setFirstTime, setCurrentFilter } = useContext(AppContext);
 
   const { pathname: location } = useLocation();
 
@@ -49,6 +49,7 @@ function HeaderRadioSearch({ searchInputValue }) {
     default:
       break;
     }
+    setCurrentFilter('radio');
   };
 
   return (
