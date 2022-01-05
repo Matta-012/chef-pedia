@@ -1,41 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
+import { getSimpleListMeals,
+  getSimpleListDrinks,
+  getCategoryMeals,
+  getCategoryDrinks } from '../helpers/fetchsFromAPI';
 
 export default function AppProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [firstTime, setFirstTime] = useState(true);
-  const LIST_LIMIT = 12;
+  const [categoriesMeals, setCategoriesMeals] = useState([]);
+  const [categoriesDrinks, setCategoriesDrinks] = useState([]);
 
-  const fetchAPIMeals = async () => {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    const results = await response.json();
-    const limit = results.meals.slice(0, LIST_LIMIT);
-    setMeals(limit);
-  };
+  const urlCategoryMeals = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const urlCategoryDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
   useEffect(() => {
-    fetchAPIMeals();
+    getSimpleListMeals(setMeals);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchAPIDrinks = async () => {
-    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    const results = await response.json();
-    const limit = results.drinks.slice(0, LIST_LIMIT);
-    setDrinks(limit);
-  };
+  useEffect(() => {
+    getSimpleListDrinks(setDrinks);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    fetchAPIDrinks();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getCategoryMeals(setCategoriesMeals, urlCategoryMeals);
+  }, []);
+
+  useEffect(() => {
+    getCategoryDrinks(setCategoriesDrinks, urlCategoryDrinks);
   }, []);
 
   return (
     <AppContext.Provider
       value={ {
-        meals, setMeals, drinks, setDrinks, firstTime, setFirstTime,
+        meals,
+        setMeals,
+        drinks,
+        setDrinks,
+        firstTime,
+        setFirstTime,
+        categoriesMeals,
+        categoriesDrinks,
       } }
     >
       { children }
