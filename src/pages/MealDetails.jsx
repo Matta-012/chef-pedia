@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchsFromAPI';
+import AppContext from '../context/AppContext';
 
 function MealDetails() {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const [meal, setMeal] = useState({});
+
+  const MAX_RECOMENDATION = 6;
+
+  const { drinks } = useContext(AppContext);
 
   useEffect(() => {
     const getMeal = async () => {
@@ -14,8 +19,8 @@ function MealDetails() {
     };
     getMeal();
   }, [id]);
-  console.log(meal);
 
+  const recomandations = drinks.slice(0, MAX_RECOMENDATION);
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meal;
 
   const getIngredientsList = () => {
@@ -51,6 +56,28 @@ function MealDetails() {
     return '#';
   };
 
+  const recomandationList = () => {
+    const recomandationsList = [];
+    recomandations.forEach((recomandation, i) => {
+      recomandationsList.push(
+        <li
+          key={ recomandation.idDrink }
+          data-testid={ `${i}-recomendation-card` }
+          hidden={ !(i === 0 || i === 1) }
+        >
+          <Link to={ `/bebidas/${recomandation.idDrink}` }>
+            <img
+              src={ recomandation.strDrinkThumb }
+              alt="recomendation"
+            />
+            <h3 data-testid={ `${i}-recomendation-title` }>{ recomandation.strDrink }</h3>
+          </Link>
+        </li>,
+      );
+    });
+    return recomandationsList;
+  };
+
   return (
     <main>
       <img src={ strMealThumb } alt="comida" data-testid="recipe-photo" />
@@ -68,7 +95,7 @@ function MealDetails() {
         allowFullScreen
         title="How to make"
       />
-      <span data-testid="0-recomendation-card"> Recomendações </span>
+      <ul>{recomandationList()}</ul>
       <button data-testid="start-recipe-btn" type="button">Favorite</button>
     </main>
   );

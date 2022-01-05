@@ -31,4 +31,9 @@ const fetchDrinkById = async (id) => {
   return drinks[0];
 };
 
-export { fetchMeals, fetchDrinks, fetchMealById, fetchDrinkById };
+export {
+  fetchMeals,
+  fetchDrinks,
+  fetchMealById,
+  fetchDrinkById,
+};

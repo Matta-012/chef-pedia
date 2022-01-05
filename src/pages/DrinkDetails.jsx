@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchsFromAPI';
+import AppContext from '../context/AppContext';
 
 function DrinkDetails() {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const [drink, setDrink] = useState({});
+
+  const { meals } = useContext(AppContext);
+
+  const MAX_RECOMENDATION = 6;
+  const recomandations = meals.slice(0, MAX_RECOMENDATION);
 
   useEffect(() => {
     const getDrink = async () => {
@@ -51,6 +57,28 @@ function DrinkDetails() {
     return '';
   };
 
+  const recomandationList = () => {
+    const recomandationsList = [];
+    recomandations.forEach((recomandation, i) => {
+      recomandationsList.push(
+        <li
+          key={ recomandation.idMeal }
+          data-testid={ `${i}-recomendation-card` }
+          hidden={ !(i === 0 || i === 1) }
+        >
+          <Link to={ `/bebidas/${recomandation.idMeal}` }>
+            <img
+              src={ recomandation.strMealThumb }
+              alt="recomendation"
+            />
+            <h3 data-testid={ `${i}-recomendation-title` }>{recomandation.strMeal}</h3>
+          </Link>
+        </li>,
+      );
+    });
+    return recomandationsList;
+  };
+
   return (
     <main>
       <img src={ strDrinkThumb } alt="bebida" data-testid="recipe-photo" />
@@ -68,7 +96,7 @@ function DrinkDetails() {
         allowFullScreen
         title="How to make"
       />
-      <span data-testid="0-recomendation-card"> Recomendações </span>
+      <ul>{recomandationList()}</ul>
       <button data-testid="start-recipe-btn" type="button">Favorite</button>
     </main>
   );
