@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
@@ -7,6 +8,7 @@ export default function AppProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [firstTime, setFirstTime] = useState(true);
   const LIST_LIMIT = 12;
+  const history = useHistory();
 
   const fetchAPIMeals = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -32,10 +34,14 @@ export default function AppProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleRoute = (route) => {
+    history.push(`${route}`);
+  };
+
   return (
     <AppContext.Provider
       value={ {
-        meals, setMeals, drinks, setDrinks, firstTime, setFirstTime,
+        meals, setMeals, drinks, setDrinks, firstTime, setFirstTime, handleRoute,
       } }
     >
       { children }
