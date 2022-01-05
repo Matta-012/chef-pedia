@@ -9,8 +9,9 @@ function Perfil() {
   const { handleRoute } = useContext(AppContext);
 
   useEffect(() => {
-    const getEmailFromStorage = () => {
-      const userEmail = getLocalStorage('user');
+    const getEmailFromStorage = async () => {
+      const userEmail = await getLocalStorage('user');
+      console.log(userEmail);
       setProfileEmail(userEmail.email);
     };
     getEmailFromStorage();
