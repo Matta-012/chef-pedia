@@ -13,7 +13,6 @@ function Meals() {
     <div>
       <Header />
       <h1 data-testid="page-title">Comidas</h1>
-      {!meals && global.alert(alertMessage)}
       {meals.map((meal, index) => (
         <RecipeCard
           key={ meal.idMeal }
