@@ -12,7 +12,7 @@ function Drinks() {
     setDrinks,
     firstTime,
     categoriesDrinks,
-    currenteFilter,
+    currentFilter,
     setCurrentFilter } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
@@ -44,7 +44,7 @@ function Drinks() {
         />
       ))}
       {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
-      {currenteFilter === 'radio'
+      {currentFilter === 'radio'
       && drinks.length === 1
       && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Footer />

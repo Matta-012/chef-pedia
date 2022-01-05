@@ -6,7 +6,7 @@ import { fetchMeals, fetchDrinks } from '../helpers/fetchesFromAPI';
 
 function HeaderRadioSearch({ searchInputValue }) {
   const [radioValue, setRadioValue] = useState('');
-  const { setMeals, setDrinks, setFirstTime, setcurrentFilter } = useContext(AppContext);
+  const { setMeals, setDrinks, setFirstTime, setCurrentFilter } = useContext(AppContext);
 
   const { pathname: location } = useLocation();
 
@@ -31,7 +31,6 @@ function HeaderRadioSearch({ searchInputValue }) {
   };
 
   const handleExecSearchButton = () => {
-    setcurrentFilter('radio');
     switch (radioValue) {
     case 'ingredient':
       fetchFromAPI(`https://www.${urlChanger}.com/api/json/v1/1/filter.php?i=`);
@@ -50,6 +49,7 @@ function HeaderRadioSearch({ searchInputValue }) {
     default:
       break;
     }
+    setCurrentFilter('radio');
   };
 
   return (

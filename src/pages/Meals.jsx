@@ -12,7 +12,7 @@ function Meals() {
     setMeals,
     firstTime,
     categoriesMeals,
-    currenteFilter,
+    currentFilter,
     setCurrentFilter } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
@@ -44,8 +44,9 @@ function Meals() {
         />
       ))}
       {meals.length === 0 && !firstTime && global.alert(alertMessage)}
-      {currenteFilter === 'radio'
-      && meals.length === 1 && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+      {currentFilter === 'radio'
+      && meals.length === 1
+      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Footer />
     </div>
   );
