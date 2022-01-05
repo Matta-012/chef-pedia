@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { fetchMealById } from '../helpers/fetchsFromAPI';
 
 function MealDetails() {
+  const { pathname } = useLocation();
+  const id = pathname.split('/')[2];
+  const [meal, setMeal] = useState({});
+
+  useEffect(() => {
+    const getMeal = async () => {
+      const fetchedMeal = await fetchMealById(id);
+      setMeal(fetchedMeal);
+    };
+    getMeal();
+  }, [id]);
+  console.log(meal);
+
   return (
     <main>
       <img src="#" alt="comida" data-testid="recipe-photo" />
