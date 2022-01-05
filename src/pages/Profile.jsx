@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 
 function Perfil() {
   const [profileEmail, setProfileEmail] = useState('');
-  const history = useHistory();
+  const { handleRoute } = useContext(AppContext);
 
   useEffect(() => {
-    const getEmailFromStorage = () => {
-      const userEmail = getLocalStorage('user');
+    const getEmailFromStorage = async () => {
+      const userEmail = await getLocalStorage('user');
+      console.log(userEmail);
       setProfileEmail(userEmail.email);
     };
     getEmailFromStorage();
   }, []);
 
-  const handleRecipesMadeBtn = () => {
-    history.push('/receitas-feitas');
-  };
-
-  const handleFavoriteRecipesBtn = () => {
-    history.push('/receitas-favoritas');
-  };
-
-  const handleLogoutBtn = () => {
+  const handleLogoutBtn = (route) => {
     localStorage.clear();
-    history.push('/');
+    handleRoute(route);
   };
 
   return (
@@ -37,22 +30,25 @@ function Perfil() {
         <p data-testid="profile-email">{profileEmail}</p>
         <button
           type="button"
+          value="/receitas-feitas"
           data-testid="profile-done-btn"
-          onClick={ handleRecipesMadeBtn }
+          onClick={ ({ target }) => handleRoute(target.value) }
         >
           Receitas Feitas
         </button>
         <button
           type="button"
+          value="/receitas-favoritas"
           data-testid="profile-favorite-btn"
-          onClick={ handleFavoriteRecipesBtn }
+          onClick={ ({ target }) => handleRoute(target.value) }
         >
           Receitas Favoritas
         </button>
         <button
           type="button"
+          value="/"
           data-testid="profile-logout-btn"
-          onClick={ handleLogoutBtn }
+          onClick={ ({ target }) => handleLogoutBtn(target.value) }
         >
           Sair
         </button>

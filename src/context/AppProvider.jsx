@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 import { getSimpleListMeals,
@@ -15,6 +16,7 @@ export default function AppProvider({ children }) {
   const [firstTime, setFirstTime] = useState(true);
   const [categoriesMeals, setCategoriesMeals] = useState([]);
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
+  const history = useHistory();
 
   const urlCategoryMeals = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
   const urlCategoryDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -37,6 +39,10 @@ export default function AppProvider({ children }) {
     getCategoryDrinks(setCategoriesDrinks, urlCategoryDrinks);
   }, []);
 
+  const handleRoute = (route) => {
+    history.push(`${route}`);
+  };
+
   return (
     <AppContext.Provider
       value={ {
@@ -54,6 +60,7 @@ export default function AppProvider({ children }) {
         setFirstTime,
         categoriesMeals,
         categoriesDrinks,
+        handleRoute,
       } }
     >
       { children }
