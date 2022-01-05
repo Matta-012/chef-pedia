@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { fetchMealById } from '../helpers/fetchsFromAPI';
+import { fetchMealById } from '../helpers/fetchesFromAPI';
 import AppContext from '../context/AppContext';
 
 function MealDetails() {
