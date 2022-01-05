@@ -19,4 +19,11 @@ const fetchDrinks = async (URL, searchInputValue) => {
   return [];
 };
 
-export { fetchMeals, fetchDrinks };
+const fetchRandomMealOrDrink = async (url) => {
+  const request = await fetch(url);
+  const response = await request.json();
+
+  return response;
+};
+
+export { fetchMeals, fetchDrinks, fetchRandomMealOrDrink };
