@@ -66,7 +66,7 @@ function DrinkDetails() {
           data-testid={ `${i}-recomendation-card` }
           hidden={ !(i === 0 || i === 1) }
         >
-          <Link to={ `/bebidas/${recomandation.idMeal}` }>
+          <Link to={ `/comidas/${recomandation.idMeal}` }>
             <img
               src={ recomandation.strMealThumb }
               alt="recomendation"
