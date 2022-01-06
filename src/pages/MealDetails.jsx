@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import AppContext from '../context/AppContext';
 
@@ -8,6 +8,8 @@ function MealDetails() {
   const id = pathname.split('/')[2];
   const [meal, setMeal] = useState({});
   const [copiedLink, setCopiedLink] = useState(false);
+
+  const history = useHistory();
 
   const MAX_RECOMENDATION = 6;
 
@@ -90,6 +92,10 @@ function MealDetails() {
     }, INTERVAL_TIME);
   };
 
+  const startRecipe = () => {
+    history.push(`/comidas/${id}/in-progress`);
+  };
+
   return (
     <main>
       <img src={ strMealThumb } alt="comida" data-testid="recipe-photo" />
@@ -120,6 +126,7 @@ function MealDetails() {
         data-testid="start-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
+        onClick={ startRecipe }
       >
         Começar receita
       </button>
