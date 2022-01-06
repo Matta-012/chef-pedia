@@ -7,6 +7,7 @@ function MealDetails() {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const [meal, setMeal] = useState({});
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const MAX_RECOMENDATION = 6;
 
@@ -78,11 +79,29 @@ function MealDetails() {
     return recomandationsList;
   };
 
+  const copyText = () => {
+    const fullPathName = window.location.href;
+    navigator.clipboard.writeText(fullPathName);
+    setCopiedLink(true);
+    const INTERVAL_TIME = 3000;
+    setTimeout(() => {
+      setCopiedLink(false);
+    }, INTERVAL_TIME);
+  };
+
   return (
     <main>
       <img src={ strMealThumb } alt="comida" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{strMeal}</h1>
-      <button data-testid="share-btn" type="button">Manda no zap</button>
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ copyText }
+      >
+        Manda no zap
+
+      </button>
+      {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
       <button data-testid="favorite-btn" type="button">Favorite</button>
       <span data-testid="recipe-category">{strCategory}</span>
       <ul>
@@ -96,7 +115,13 @@ function MealDetails() {
         title="How to make"
       />
       <ul>{recomandationList()}</ul>
-      <button data-testid="start-recipe-btn" type="button">Favorite</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        style={ { position: 'fixed', bottom: '0px' } }
+      >
+        Começar receita
+      </button>
     </main>
   );
 }
