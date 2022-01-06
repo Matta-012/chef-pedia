@@ -23,7 +23,6 @@ function Drinks() {
 
   const filterCategory = (category) => {
     if (!isCategoryClicked) {
-      console.log('primeiro if');
       setCurrentFilter('category');
       filterDrinksByCategory(URL, category, setDrinks);
       setDrinksByCategories({
@@ -33,7 +32,6 @@ function Drinks() {
       });
       setIsCategoryClicked(true);
     } else if (isCategoryClicked && drinksByCategories.name !== category) {
-      console.log('segundo if');
       setCurrentFilter('category');
       filterDrinksByCategory(URL, category, setDrinks);
       setDrinksByCategories({
