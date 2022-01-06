@@ -22,6 +22,7 @@ function Meals() {
 
   const filterCategory = (category) => {
     if (!isCategoryClicked) {
+      console.log('primeiro if');
       setCurrentFilter('category');
       filterMealsByCategory(URL, category, setMeals);
       setMealsByCategories({
@@ -29,11 +30,24 @@ function Meals() {
         name: category,
         mealsInList: meals,
       });
+      setIsCategoryClicked(true);
+    } else if (isCategoryClicked && mealsByCategories.name !== category) {
+      console.log('segundo if');
+      setCurrentFilter('category');
+      filterMealsByCategory(URL, category, setMeals);
+      setMealsByCategories({
+        ...mealsByCategories,
+        name: category,
+      });
     } else {
+      console.log('else');
+      setMealsByCategories({
+        ...mealsByCategories,
+        name: '',
+      });
       setMeals(mealsByCategories.mealsInList);
+      setIsCategoryClicked(false);
     }
-
-    setIsCategoryClicked(!isCategoryClicked);
   };
 
   return (

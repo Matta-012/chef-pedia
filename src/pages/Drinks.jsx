@@ -23,8 +23,7 @@ function Drinks() {
 
   const filterCategory = (category) => {
     if (!isCategoryClicked) {
-      setCurrentFilter('category');
-      filterDrinksByCategory(URL, category, setDrinks);
+      console.log('primeiro if');
       setCurrentFilter('category');
       filterDrinksByCategory(URL, category, setDrinks);
       setDrinksByCategories({
@@ -32,10 +31,24 @@ function Drinks() {
         name: category,
         drinksInList: drinks,
       });
+      setIsCategoryClicked(true);
+    } else if (isCategoryClicked && drinksByCategories.name !== category) {
+      console.log('segundo if');
+      setCurrentFilter('category');
+      filterDrinksByCategory(URL, category, setDrinks);
+      setDrinksByCategories({
+        ...drinksByCategories,
+        name: category,
+      });
     } else {
+      console.log('else');
+      setDrinksByCategories({
+        ...drinksByCategories,
+        name: '',
+      });
       setDrinks(drinksByCategories.drinksInList);
+      setIsCategoryClicked(false);
     }
-    setIsCategoryClicked(!isCategoryClicked);
   };
 
   return (
