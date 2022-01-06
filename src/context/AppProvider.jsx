@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
-import { getSimpleListMeals,
+import {
+  getSimpleListMeals,
   getSimpleListDrinks,
   getCategoryMeals,
-  getCategoryDrinks } from '../helpers/fetchesFromAPI';
+  getCategoryDrinks,
+  getIngredients,
+  LIST_LIMIT,
+} from '../helpers/fetchesFromAPI';
+
+const MEALS_INGREDIENTS_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const DRINKS_INGREDIENTS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
 
 export default function AppProvider({ children }) {
   const [meals, setMeals] = useState([]);
@@ -16,6 +23,7 @@ export default function AppProvider({ children }) {
   const [firstTime, setFirstTime] = useState(true);
   const [categoriesMeals, setCategoriesMeals] = useState([]);
   const [categoriesDrinks, setCategoriesDrinks] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
   const history = useHistory();
 
   const urlCategoryMeals = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
@@ -43,6 +51,36 @@ export default function AppProvider({ children }) {
     history.push(`${route}`);
   };
 
+  const getIngredientsList = async (currentLocationPath) => {
+    if (currentLocationPath === 'bebidas') {
+      const result = await getIngredients(DRINKS_INGREDIENTS_URL);
+      const drinksIngredients = result.drinks
+        .map(({ strIngredient1 }) => strIngredient1)
+        .slice(0, LIST_LIMIT);
+
+      const ingredientList = drinksIngredients.map((ingredient) => (
+        {
+          ingredient,
+          ingredientImg: `https://www.thecocktaildb.com/images/ingredients/${ingredient.split(' ').join('%20')}.png`,
+        }
+      ));
+      setIngredientsList(ingredientList);
+    } else {
+      const result = await getIngredients(MEALS_INGREDIENTS_URL);
+      const mealsIngredients = result.meals
+        .map(({ strIngredient }) => strIngredient)
+        .slice(0, LIST_LIMIT);
+
+      const ingredientList = mealsIngredients.map((ingredient) => (
+        {
+          ingredient,
+          ingredientImg: `https://www.themealdb.com/images/ingredients/${ingredient.split(' ').join('%20')}.png`,
+        }
+      ));
+      setIngredientsList(ingredientList);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={ {
@@ -61,9 +99,11 @@ export default function AppProvider({ children }) {
         categoriesMeals,
         categoriesDrinks,
         handleRoute,
+        ingredientsList,
+        getIngredientsList,
       } }
     >
-      { children }
+      {children}
     </AppContext.Provider>
   );
 }

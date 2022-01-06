@@ -28,7 +28,6 @@ function ExploreOptions() {
       handleRoute(`/${routePath}/${idMeal}`);
     } else {
       const { drinks: [{ idDrink }] } = await fetchRandomMealOrDrink(RANDOM_DRINK_URL);
-      console.log(idDrink);
       handleRoute(`/${routePath}/${idDrink}`);
     }
   };

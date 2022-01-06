@@ -41,6 +41,7 @@ function Drinks() {
           image={ drink.strDrinkThumb }
           title={ drink.strDrink }
           index={ index }
+          cardType="recipe"
         />
       ))}
       {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
