@@ -11,7 +11,6 @@ function Perfil() {
   useEffect(() => {
     const getEmailFromStorage = async () => {
       const userEmail = await getLocalStorage('user');
-      console.log(userEmail);
       setProfileEmail(userEmail.email);
     };
     getEmailFromStorage();
