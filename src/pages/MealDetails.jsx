@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
+import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
 import AppContext from '../context/AppContext';
+import { embedYoutube, copyText } from '../helpers/foodDetailsHelpers';
+import RecomandationCard from '../components/RecomandationCard';
 
 function MealDetails() {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const [meal, setMeal] = useState({});
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isDone, setIsDone] = useState(true);
+  const [inProgress, setInProgress] = useState(false);
 
   const history = useHistory();
 
@@ -21,6 +26,25 @@ function MealDetails() {
       setMeal(fetchedMeal);
     };
     getMeal();
+  }, [id]);
+
+  useEffect(() => {
+    const doneRecipes = getLocalStorage('doneRecipes');
+    if (doneRecipes) {
+      const foundRecipe = doneRecipes.find((recipe) => recipe.id === id);
+      setIsDone(foundRecipe);
+    } else {
+      setIsDone(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      const mealsIds = Object.keys(inProgressRecipes.meals);
+      const foundRecipe = mealsIds.find((recipe) => recipe === id);
+      setInProgress(foundRecipe);
+    }
   }, [id]);
 
   const recomandations = drinks.slice(0, MAX_RECOMENDATION);
@@ -46,53 +70,31 @@ function MealDetails() {
     return ingredients;
   };
 
-  const embedYoutube = () => {
-    if (strYoutube) {
-      const youtubeId = strYoutube.split('v=')[1];
-      const ampersandPosition = youtubeId.indexOf('&');
-      const NEGATIV_ONE = -1;
-      if (ampersandPosition !== NEGATIV_ONE) {
-        youtubeId.slice(0, ampersandPosition);
-      }
-      return `https://www.youtube.com/embed/${youtubeId}`;
-    }
-    return '#';
-  };
-
   const recomandationList = () => {
     const recomandationsList = [];
     recomandations.forEach((recomandation, i) => {
       recomandationsList.push(
-        <li
-          key={ recomandation.idDrink }
-          data-testid={ `${i}-recomendation-card` }
-          hidden={ !(i === 0 || i === 1) }
-        >
-          <Link to={ `/bebidas/${recomandation.idDrink}` }>
-            <img
-              src={ recomandation.strDrinkThumb }
-              alt="recomendation"
-            />
-            <h3 data-testid={ `${i}-recomendation-title` }>{ recomandation.strDrink }</h3>
-          </Link>
-        </li>,
+        <RecomandationCard
+          recomandation={ recomandation }
+          i={ i }
+          foodType="meal"
+        />,
       );
     });
     return recomandationsList;
   };
 
-  const copyText = () => {
-    const fullPathName = window.location.href;
-    navigator.clipboard.writeText(fullPathName);
-    setCopiedLink(true);
-    const INTERVAL_TIME = 3000;
-    const timeOutId = setTimeout(() => {
-      setCopiedLink(false);
-      clearTimeout(timeOutId);
-    }, INTERVAL_TIME);
-  };
-
   const startRecipe = () => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      const newMeals = { ...inProgressRecipes.meals, [id]: [] };
+      saveLocalStorage(
+        'inProgressRecipes', { ...inProgressRecipes, meals: newMeals },
+      );
+    } else {
+      const meals = { [id]: [] };
+      saveLocalStorage('inProgressRecipes', { meals, cocktails: {} });
+    }
     history.push(`/comidas/${id}/in-progress`);
   };
 
@@ -103,7 +105,7 @@ function MealDetails() {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ copyText }
+        onClick={ () => { copyText(setCopiedLink); } }
       >
         Manda no zap
 
@@ -117,7 +119,7 @@ function MealDetails() {
       <p data-testid="instructions">{strInstructions}</p>
       <iframe
         data-testid="video"
-        src={ embedYoutube() }
+        src={ embedYoutube(strYoutube) }
         allowFullScreen
         title="How to make"
       />
@@ -127,8 +129,9 @@ function MealDetails() {
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ startRecipe }
+        hidden={ isDone }
       >
-        Começar receita
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </main>
   );

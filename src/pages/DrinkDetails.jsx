@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchesFromAPI';
+import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
+import { embedYoutube, copyText } from '../helpers/foodDetailsHelpers';
 import AppContext from '../context/AppContext';
+import RecomandationCard from '../components/RecomandationCard';
 
 function DrinkDetails() {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const [drink, setDrink] = useState({});
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isDone, setIsDone] = useState(true);
+  const [inProgress, setInProgress] = useState(true);
 
   const { meals } = useContext(AppContext);
 
@@ -23,7 +28,25 @@ function DrinkDetails() {
     };
     getDrink();
   }, [id]);
-  console.log(drink);
+
+  useEffect(() => {
+    const doneRecipes = getLocalStorage('doneRecipes');
+    if (doneRecipes) {
+      const foundRecipe = doneRecipes.find((recipe) => recipe.id === id);
+      setIsDone(foundRecipe);
+    } else {
+      setIsDone(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      const cocktailsIds = Object.keys(inProgressRecipes.cocktails);
+      const foundRecipe = cocktailsIds.find((recipe) => recipe === id);
+      setInProgress(foundRecipe);
+    }
+  }, [id]);
 
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions, strYoutube } = drink;
 
@@ -47,52 +70,32 @@ function DrinkDetails() {
     return ingredients;
   };
 
-  const embedYoutube = () => {
-    if (strYoutube) {
-      const youtubeId = strYoutube.split('v=')[1];
-      const ampersandPosition = youtubeId.indexOf('&');
-      const NEGATIV_ONE = -1;
-      if (ampersandPosition !== NEGATIV_ONE) {
-        youtubeId.slice(0, ampersandPosition);
-      }
-      return `https://www.youtube.com/embed/${youtubeId}`;
-    }
-    return '';
-  };
-
   const recomandationList = () => {
     const recomandationsList = [];
     recomandations.forEach((recomandation, i) => {
       recomandationsList.push(
-        <li
-          key={ recomandation.idMeal }
-          data-testid={ `${i}-recomendation-card` }
-          hidden={ !(i === 0 || i === 1) }
-        >
-          <Link to={ `/comidas/${recomandation.idMeal}` }>
-            <img
-              src={ recomandation.strMealThumb }
-              alt="recomendation"
-            />
-            <h3 data-testid={ `${i}-recomendation-title` }>{recomandation.strMeal}</h3>
-          </Link>
-        </li>,
+        <RecomandationCard
+          recomandation={ recomandation }
+          i={ i }
+          foodType="drink"
+        />,
       );
     });
     return recomandationsList;
   };
 
-  const copyText = () => {
-    const fullPathName = window.location.href;
-    navigator.clipboard.writeText(fullPathName);
-    setCopiedLink(true);
-    const INTERVAL_TIME = 3000;
-    setTimeout(() => {
-      setCopiedLink(false);
-    }, INTERVAL_TIME);
-  };
-
   const startRecipe = () => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+
+    if (inProgressRecipes) {
+      const newCocktails = { ...inProgressRecipes.cocktails, [id]: [] };
+      saveLocalStorage(
+        'inProgressRecipes', { ...inProgressRecipes, cocktails: newCocktails },
+      );
+    } else {
+      const cocktails = { [id]: [] };
+      saveLocalStorage('inProgressRecipes', { meals: {}, cocktails });
+    }
     history.push(`/bebidas/${id}/in-progress`);
   };
 
@@ -103,7 +106,7 @@ function DrinkDetails() {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ copyText }
+        onClick={ () => { copyText(setCopiedLink); } }
       >
         Manda no zap
 
@@ -117,7 +120,7 @@ function DrinkDetails() {
       <p data-testid="instructions">{strInstructions}</p>
       <iframe
         data-testid="video"
-        src={ embedYoutube() }
+        src={ embedYoutube(strYoutube) }
         allowFullScreen
         title="How to make"
       />
@@ -127,8 +130,9 @@ function DrinkDetails() {
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ startRecipe }
+        hidden={ isDone }
       >
-        Começar receita
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </main>
   );
