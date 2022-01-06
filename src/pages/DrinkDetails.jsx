@@ -97,7 +97,13 @@ function DrinkDetails() {
         title="How to make"
       />
       <ul>{recomandationList()}</ul>
-      <button data-testid="start-recipe-btn" type="button">Favorite</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        style={ { position: 'fixed', bottom: '0px' } }
+      >
+        Começar receita
+      </button>
     </main>
   );
 }
