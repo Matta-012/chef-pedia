@@ -40,7 +40,7 @@ function RecomandationCard({ recomandation, i, foodType }) {
 RecomandationCard.propTypes = {
   i: PropTypes.number.isRequired,
   recomandation: PropTypes.shape({
-    idDrink: PropTypes.number,
+    idDrink: PropTypes.string,
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
   }).isRequired,

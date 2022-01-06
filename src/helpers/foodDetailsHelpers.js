@@ -1,3 +1,5 @@
+import { getLocalStorage, saveLocalStorage } from './manageLocalStorage';
+
 const embedYoutube = (strYoutube) => {
   if (strYoutube) {
     const youtubeId = strYoutube.split('v=')[1];
@@ -22,4 +24,35 @@ const copyText = (setCopiedLink) => {
   }, INTERVAL_TIME);
 };
 
-export { embedYoutube, copyText };
+const startRecipe = (history, foodType, id) => {
+  if (foodType === 'drink') {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+
+    if (inProgressRecipes) {
+      const newCocktails = { ...inProgressRecipes.cocktails, [id]: [] };
+      saveLocalStorage(
+        'inProgressRecipes', { ...inProgressRecipes, cocktails: newCocktails },
+      );
+    } else {
+      const cocktails = { [id]: [] };
+      saveLocalStorage('inProgressRecipes', { meals: {}, cocktails });
+    }
+    history.push(`/bebidas/${id}/in-progress`);
+  }
+
+  if (foodType === 'meal') {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      const newMeals = { ...inProgressRecipes.meals, [id]: [] };
+      saveLocalStorage(
+        'inProgressRecipes', { ...inProgressRecipes, meals: newMeals },
+      );
+    } else {
+      const meals = { [id]: [] };
+      saveLocalStorage('inProgressRecipes', { meals, cocktails: {} });
+    }
+    history.push(`/comidas/${id}/in-progress`);
+  }
+};
+
+export { embedYoutube, copyText, startRecipe };

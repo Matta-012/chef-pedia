@@ -40,7 +40,7 @@ function DrinkInProgress() {
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (drink[`strIngredient${i}`]) {
         ingredients.push(
-          <label htmlFor={ `strIngredient${i}` }>
+          <label htmlFor={ `strIngredient${i}` } key={ drink[`strIngredient${i}`] }>
             {drink[`strIngredient${i}`]}
             {drink[`strMeasure${i}`]}
             <input

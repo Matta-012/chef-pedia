@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
-import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
+import { getLocalStorage } from '../helpers/manageLocalStorage';
 import AppContext from '../context/AppContext';
-import { embedYoutube, copyText } from '../helpers/foodDetailsHelpers';
+import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import RecomandationCard from '../components/RecomandationCard';
 
 function MealDetails() {
@@ -85,20 +85,6 @@ function MealDetails() {
     return recomandationsList;
   };
 
-  const startRecipe = () => {
-    const inProgressRecipes = getLocalStorage('inProgressRecipes');
-    if (inProgressRecipes) {
-      const newMeals = { ...inProgressRecipes.meals, [id]: [] };
-      saveLocalStorage(
-        'inProgressRecipes', { ...inProgressRecipes, meals: newMeals },
-      );
-    } else {
-      const meals = { [id]: [] };
-      saveLocalStorage('inProgressRecipes', { meals, cocktails: {} });
-    }
-    history.push(`/comidas/${id}/in-progress`);
-  };
-
   return (
     <main>
       <img src={ strMealThumb } alt="comida" data-testid="recipe-photo" />
@@ -129,7 +115,7 @@ function MealDetails() {
         data-testid="start-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
-        onClick={ startRecipe }
+        onClick={ () => { startRecipe(history, 'meal', id); } }
         hidden={ isDone }
       >
         {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}

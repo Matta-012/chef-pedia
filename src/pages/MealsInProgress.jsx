@@ -39,11 +39,10 @@ function MealInProgress() {
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (meal[`strIngredient${i}`]) {
         ingredients.push(
-          <label htmlFor={ `strIngredient${i}` }>
+          <label htmlFor={ `strIngredient${i}` } key={ meal[`strIngredient${i}`] }>
             {meal[`strIngredient${i}`]}
             {meal[`strMeasure${i}`]}
             <input
-              key={ i }
               id={ `strIngredient${i}` }
               data-testid={ `${i - ONE}-ingredient-name-and-measure` }
               onClick={ verifyCheckbox }
