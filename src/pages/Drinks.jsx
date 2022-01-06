@@ -65,6 +65,8 @@ function Drinks() {
       {drinks.map((drink, index) => (
         <RecipeCard
           key={ drink.idDrink }
+          id={ drink.idDrink }
+          recipe="bebidas"
           image={ drink.strDrinkThumb }
           title={ drink.strDrink }
           index={ index }
