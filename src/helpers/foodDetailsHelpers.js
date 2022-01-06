@@ -8,7 +8,7 @@ const embedYoutube = (strYoutube) => {
     }
     return `https://www.youtube.com/embed/${youtubeId}`;
   }
-  return '#';
+  return '';
 };
 
 const copyText = (setCopiedLink) => {
