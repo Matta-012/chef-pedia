@@ -75,6 +75,7 @@ function DrinkDetails() {
     recomandations.forEach((recomandation, i) => {
       recomandationsList.push(
         <RecomandationCard
+          key={ recomandation.idMeal }
           recomandation={ recomandation }
           i={ i }
           foodType="drink"

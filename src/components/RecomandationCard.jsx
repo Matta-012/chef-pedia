@@ -6,7 +6,6 @@ function RecomandationCard({ recomandation, i, foodType }) {
   if (foodType === 'meal') {
     return (
       <li
-        key={ recomandation.idDrink }
         data-testid={ `${i}-recomendation-card` }
         hidden={ !(i === 0 || i === 1) }
       >
@@ -23,7 +22,6 @@ function RecomandationCard({ recomandation, i, foodType }) {
   if (foodType === 'drink') {
     return (
       <li
-        key={ recomandation.idMeal }
         data-testid={ `${i}-recomendation-card` }
         hidden={ !(i === 0 || i === 1) }
       >
