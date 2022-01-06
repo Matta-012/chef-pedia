@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
@@ -12,14 +12,28 @@ function Meals() {
     setMeals,
     firstTime,
     categoriesMeals,
+    mealsByCategories,
+    setMealsByCategories,
     currentFilter,
     setCurrentFilter } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+  const [isCategoryClicked, setIsCategoryClicked] = useState(false);
 
   const filterCategory = (category) => {
-    setCurrentFilter('category');
-    filterMealsByCategory(URL, category, setMeals);
+    if (!isCategoryClicked) {
+      setCurrentFilter('category');
+      filterMealsByCategory(URL, category, setMeals);
+      setMealsByCategories({
+        ...mealsByCategories,
+        name: category,
+        mealsInList: meals,
+      });
+    } else {
+      setMeals(mealsByCategories.mealsInList);
+    }
+
+    setIsCategoryClicked(!isCategoryClicked);
   };
 
   return (

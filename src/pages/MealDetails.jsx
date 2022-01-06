@@ -84,8 +84,9 @@ function MealDetails() {
     navigator.clipboard.writeText(fullPathName);
     setCopiedLink(true);
     const INTERVAL_TIME = 3000;
-    setTimeout(() => {
+    const timeOutId = setTimeout(() => {
       setCopiedLink(false);
+      clearTimeout(timeOutId);
     }, INTERVAL_TIME);
   };
 
@@ -102,7 +103,7 @@ function MealDetails() {
 
       </button>
       {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <button data-testid="favorite-btn" type="button">Favorite</button>
+      <button data-testid="favorite-btn" type="button">Favorite ♡</button>
       <span data-testid="recipe-category">{strCategory}</span>
       <ul>
         {getIngredientsList()}

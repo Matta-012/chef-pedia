@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
@@ -13,13 +13,29 @@ function Drinks() {
     firstTime,
     categoriesDrinks,
     currentFilter,
-    setCurrentFilter } = useContext(AppContext);
+    setCurrentFilter,
+    drinksByCategories,
+    setDrinksByCategories,
+  } = useContext(AppContext);
   const alertMessage = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
   const URL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+  const [isCategoryClicked, setIsCategoryClicked] = useState(false);
 
   const filterCategory = (category) => {
-    setCurrentFilter('category');
-    filterDrinksByCategory(URL, category, setDrinks);
+    if (!isCategoryClicked) {
+      setCurrentFilter('category');
+      filterDrinksByCategory(URL, category, setDrinks);
+      setCurrentFilter('category');
+      filterDrinksByCategory(URL, category, setDrinks);
+      setDrinksByCategories({
+        ...drinksByCategories,
+        name: category,
+        drinksInList: drinks,
+      });
+    } else {
+      setDrinks(drinksByCategories.drinksInList);
+    }
+    setIsCategoryClicked(!isCategoryClicked);
   };
 
   return (
