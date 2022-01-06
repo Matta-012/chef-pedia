@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
-import { filterDrinksByCategory } from '../helpers/fetchesFromAPI';
+import { filterDrinksByCategory, getSimpleListDrinks } from '../helpers/fetchesFromAPI';
 
 function Drinks() {
   const { drinks,
@@ -61,6 +61,13 @@ function Drinks() {
             filterCategory={ filterCategory }
           />
         ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => getSimpleListDrinks(setDrinks) }
+        >
+          All
+        </button>
       </div>
       {drinks.map((drink, index) => (
         <RecipeCard
