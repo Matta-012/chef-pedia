@@ -75,6 +75,13 @@ const fetchDrinkById = async (id) => {
   return drinks[0];
 };
 
+const fetchRandomMealOrDrink = async (url) => {
+  const request = await fetch(url);
+  const response = await request.json();
+
+  return response;
+};
+
 export {
   fetchMeals,
   fetchDrinks,
@@ -86,4 +93,5 @@ export {
   filterMealsByCategory,
   fetchMealById,
   fetchDrinkById,
+  fetchRandomMealOrDrink,
 };

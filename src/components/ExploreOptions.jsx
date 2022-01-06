@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
-import { fetchRandomMealOrDrink } from '../helpers/fetchsFromAPI';
+import { fetchRandomMealOrDrink } from '../helpers/fetchesFromAPI';
 
 const RANDOM_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const RANDOM_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
