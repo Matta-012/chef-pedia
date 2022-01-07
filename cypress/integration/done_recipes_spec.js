@@ -40,7 +40,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe.only('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
+  describe('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
     it('Todos os data-testids estão disponíveis', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');
@@ -60,7 +60,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe('55 - Desenvolva a tela de maneira que, caso a receita do card seja uma comida, ela deve possuir: a foto da receita, o nome, a categoria, a area, a data em que a pessoa fez a receita, as 2 primeiras tags retornadas pela API e um botão de compartilhar', () => {
+  describe.only('55 - Desenvolva a tela de maneira que, caso a receita do card seja uma comida, ela deve possuir: a foto da receita, o nome, a categoria, a area, a data em que a pessoa fez a receita, as 2 primeiras tags retornadas pela API e um botão de compartilhar', () => {
     it('O card possui os atributos corretos de uma comida', () => {
       cy.get('[data-testid="0-horizontal-image"]')
         .should('have.attr', 'src')

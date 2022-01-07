@@ -33,17 +33,23 @@ export default function RecipeMade() {
           Drinks
         </button>
 
-        {doneRecipes.map((doneRecipe, index) => (
-          <DoneRecipeCard
-            key={ doneRecipe.id }
-            tags={ doneRecipe.tags }
-            index={ index }
-            category={ doneRecipe.category }
-            name={ doneRecipe.name }
-            doneDate={ doneRecipe.doneDate }
-            image={ doneRecipe.image }
-          />
-        ))}
+        {doneRecipes
+          ? (
+            doneRecipes.map((doneRecipe, index) => (
+              <DoneRecipeCard
+                key={ doneRecipe.id }
+                tags={ doneRecipe.tags }
+                index={ index }
+                category={ doneRecipe.category }
+                name={ doneRecipe.name }
+                doneDate={ doneRecipe.doneDate }
+                image={ doneRecipe.image }
+                type={ doneRecipe.type }
+                area={ doneRecipe.area }
+                alcoholicOrNot={ doneRecipe.alcoholicOrNot }
+              />
+            ))
+          ) : []}
       </div>
     </div>
   );
