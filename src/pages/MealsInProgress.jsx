@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
 import FavoriteButton from '../components/FavoriteButton';
+import IngredientCheckbox from '../components/IngredientCheckbox';
 
 function MealInProgress() {
   const { pathname } = useLocation();
@@ -23,8 +24,9 @@ function MealInProgress() {
 
   const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
 
-  const verifyCheckbox = () => {
+  const verifyCheckbox = ({ target }) => {
     const ingredients = document.getElementsByClassName('ingredient-checkbox');
+    console.log(target);
     const ingredientsArr = [];
     for (let i = 0; i < ingredients.length; i += 1) {
       ingredientsArr.push(ingredients[i].checked);
@@ -36,25 +38,16 @@ function MealInProgress() {
   const getIngredientsList = () => {
     const ingredients = [];
     const MAX_INGREDIENTS = 20;
-    const ONE = 1;
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (meal[`strIngredient${i}`]) {
         ingredients.push(
-          <label
-            htmlFor={ `strIngredient${i}` }
+          <IngredientCheckbox
             key={ meal[`strIngredient${i}`] }
-            data-testid="ingredient-step"
-          >
-            {meal[`strIngredient${i}`]}
-            {meal[`strMeasure${i}`]}
-            <input
-              id={ `strIngredient${i}` }
-              data-testid={ `${i - ONE}-ingredient-name-and-measure` }
-              onClick={ verifyCheckbox }
-              className="ingredient-checkbox"
-              type="checkbox"
-            />
-          </label>,
+            foodType="meal"
+            food={ meal }
+            verifyCheckbox={ verifyCheckbox }
+            i={ i }
+          />,
         );
       }
     }

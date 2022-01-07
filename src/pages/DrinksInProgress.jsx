@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
 import FavoriteButton from '../components/FavoriteButton';
+import IngredientCheckbox from '../components/IngredientCheckbox';
 
 function DrinkInProgress() {
   const { pathname } = useLocation();
@@ -36,26 +37,16 @@ function DrinkInProgress() {
   const getIngredientsList = () => {
     const ingredients = [];
     const MAX_INGREDIENTS = 20;
-    const ONE = 1;
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (drink[`strIngredient${i}`]) {
         ingredients.push(
-          <label
-            htmlFor={ `strIngredient${i}` }
+          <IngredientCheckbox
             key={ drink[`strIngredient${i}`] }
-            data-testid="ingredient-step"
-          >
-            {drink[`strIngredient${i}`]}
-            {drink[`strMeasure${i}`]}
-            <input
-              key={ i }
-              id={ `strIngredient${i}` }
-              data-testid={ `${i - ONE}-ingredient-name-and-measure` }
-              onClick={ verifyCheckbox }
-              className="ingredient-checkbox"
-              type="checkbox"
-            />
-          </label>,
+            foodType="drink"
+            food={ drink }
+            verifyCheckbox={ verifyCheckbox }
+            i={ i }
+          />,
         );
       }
     }
