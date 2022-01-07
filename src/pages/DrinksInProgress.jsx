@@ -69,6 +69,7 @@ function DrinkInProgress() {
 
   const endRecipe = () => {
     const doneRecipes = getLocalStorage('doneRecipes');
+
     const { strCategory, strTags } = drink;
     let strNewTags;
     if (strTags) {
@@ -76,6 +77,7 @@ function DrinkInProgress() {
     } else {
       strNewTags = [];
     }
+    const { strTags, strCategory } = drink;
 
     const recipeObj = {
       id,

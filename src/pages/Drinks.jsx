@@ -75,6 +75,7 @@ function Drinks() {
             image={ drink.strDrinkThumb }
             title={ drink.strDrink }
             index={ index }
+            cardType="recipe"
           />
         </Link>
       ))}
