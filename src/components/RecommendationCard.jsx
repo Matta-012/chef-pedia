@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function RecomandationCard({ recomandation, i, foodType }) {
+function RecommendationCard({ recommendation, i, foodType }) {
   if (foodType === 'meal') {
     return (
       <li
         data-testid={ `${i}-recomendation-card` }
         hidden={ !(i === 0 || i === 1) }
       >
-        <Link to={ `/bebidas/${recomandation.idDrink}` }>
+        <Link to={ `/bebidas/${recommendation.idDrink}` }>
           <img
-            src={ recomandation.strDrinkThumb }
+            src={ recommendation.strDrinkThumb }
             alt="recomendation"
           />
-          <h3 data-testid={ `${i}-recomendation-title` }>{recomandation.strDrink}</h3>
+          <h3 data-testid={ `${i}-recomendation-title` }>{recommendation.strDrink}</h3>
         </Link>
       </li>
     );
@@ -25,25 +25,25 @@ function RecomandationCard({ recomandation, i, foodType }) {
         data-testid={ `${i}-recomendation-card` }
         hidden={ !(i === 0 || i === 1) }
       >
-        <Link to={ `/comidas/${recomandation.idMeal}` }>
+        <Link to={ `/comidas/${recommendation.idMeal}` }>
           <img
-            src={ recomandation.strMealThumb }
+            src={ recommendation.strMealThumb }
             alt="recomendation"
           />
-          <h3 data-testid={ `${i}-recomendation-title` }>{recomandation.strMeal}</h3>
+          <h3 data-testid={ `${i}-recomendation-title` }>{recommendation.strMeal}</h3>
         </Link>
       </li>
     );
   }
 }
 
-RecomandationCard.propTypes = {
+RecommendationCard.propTypes = {
   i: PropTypes.number.isRequired,
-  recomandation: PropTypes.shape({
+  recommendation: PropTypes.shape({
     idDrink: PropTypes.string,
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
   }).isRequired,
 };
 
-export default RecomandationCard;
+export default RecommendationCard;

@@ -4,7 +4,7 @@ import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 import AppContext from '../context/AppContext';
 import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
-import RecomandationCard from '../components/RecomandationCard';
+import RecommendationCard from '../components/RecommendationCard';
 
 function MealDetails() {
   const { pathname } = useLocation();
@@ -16,7 +16,7 @@ function MealDetails() {
 
   const history = useHistory();
 
-  const MAX_RECOMENDATION = 6;
+  const MAX_RECOMMENDATION = 6;
 
   const { drinks } = useContext(AppContext);
 
@@ -47,7 +47,7 @@ function MealDetails() {
     }
   }, [id]);
 
-  const recomandations = drinks.slice(0, MAX_RECOMENDATION);
+  const recommendations = drinks.slice(0, MAX_RECOMMENDATION);
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = meal;
 
   const getIngredientsList = () => {
@@ -70,19 +70,19 @@ function MealDetails() {
     return ingredients;
   };
 
-  const recomandationList = () => {
-    const recomandationsList = [];
-    recomandations.forEach((recomandation, i) => {
-      recomandationsList.push(
-        <RecomandationCard
-          key={ recomandation.idDrink }
-          recomandation={ recomandation }
+  const recommendationList = () => {
+    const recommendationListArr = [];
+    recommendations.forEach((recommendation, i) => {
+      recommendationListArr.push(
+        <RecommendationCard
+          key={ recommendation.idDrink }
+          recommendation={ recommendation }
           i={ i }
           foodType="meal"
         />,
       );
     });
-    return recomandationsList;
+    return recommendationListArr;
   };
 
   return (
@@ -110,7 +110,7 @@ function MealDetails() {
         allowFullScreen
         title="How to make"
       />
-      <ul>{recomandationList()}</ul>
+      <ul>{recommendationList()}</ul>
       <button
         data-testid="start-recipe-btn"
         type="button"

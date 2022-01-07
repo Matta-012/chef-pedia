@@ -4,7 +4,7 @@ import { fetchDrinkById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import AppContext from '../context/AppContext';
-import RecomandationCard from '../components/RecomandationCard';
+import RecommendationCard from '../components/RecommendationCard';
 
 function DrinkDetails() {
   const { pathname } = useLocation();
@@ -18,8 +18,8 @@ function DrinkDetails() {
 
   const history = useHistory();
 
-  const MAX_RECOMENDATION = 6;
-  const recomandations = meals.slice(0, MAX_RECOMENDATION);
+  const MAX_RECOMMENDATION = 6;
+  const recommendations = meals.slice(0, MAX_RECOMMENDATION);
 
   useEffect(() => {
     const getDrink = async () => {
@@ -70,19 +70,19 @@ function DrinkDetails() {
     return ingredients;
   };
 
-  const recomandationList = () => {
-    const recomandationsList = [];
-    recomandations.forEach((recomandation, i) => {
-      recomandationsList.push(
-        <RecomandationCard
-          key={ recomandation.idMeal }
-          recomandation={ recomandation }
+  const recommendationList = () => {
+    const recommendationsList = [];
+    recommendations.forEach((recommendation, i) => {
+      recommendationsList.push(
+        <RecommendationCard
+          key={ recommendation.idMeal }
+          recommendation={ recommendation }
           i={ i }
           foodType="drink"
         />,
       );
     });
-    return recomandationsList;
+    return recommendationsList;
   };
 
   return (
@@ -110,7 +110,7 @@ function DrinkDetails() {
         allowFullScreen
         title="How to make"
       />
-      <ul>{recomandationList()}</ul>
+      <ul>{recommendationList()}</ul>
       <button
         data-testid="start-recipe-btn"
         type="button"
