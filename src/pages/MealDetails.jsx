@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 import AppContext from '../context/AppContext';
+import FavoriteButton from '../components/FavoriteButton';
 import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import RecommendationCard from '../components/RecommendationCard';
 
@@ -19,6 +20,8 @@ function MealDetails() {
   const MAX_RECOMMENDATION = 6;
 
   const { drinks } = useContext(AppContext);
+
+  console.log(meal);
 
   useEffect(() => {
     const getMeal = async () => {
@@ -98,7 +101,7 @@ function MealDetails() {
 
       </button>
       {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <button data-testid="favorite-btn" type="button">Favorite ♡</button>
+      <FavoriteButton id={ id } food={ meal } foodType="meal" />
       <span data-testid="recipe-category">{strCategory}</span>
       <ul>
         {getIngredientsList()}

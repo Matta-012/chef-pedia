@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
+import FavoriteButton from '../components/FavoriteButton';
 import AppContext from '../context/AppContext';
 import RecommendationCard from '../components/RecommendationCard';
 
@@ -20,6 +21,8 @@ function DrinkDetails() {
 
   const MAX_RECOMMENDATION = 6;
   const recommendations = meals.slice(0, MAX_RECOMMENDATION);
+
+  console.log(drink);
 
   useEffect(() => {
     const getDrink = async () => {
@@ -98,7 +101,7 @@ function DrinkDetails() {
 
       </button>
       {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <button data-testid="favorite-btn" type="button">Favorite</button>
+      <FavoriteButton id={ id } food={ drink } foodType="drink" />
       <span data-testid="recipe-category">{strAlcoholic}</span>
       <ul>
         {getIngredientsList()}
