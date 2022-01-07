@@ -19,7 +19,6 @@ function DrinkInProgress() {
     };
     getDrink();
   }, [id]);
-  console.log(drink);
 
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
 
@@ -71,6 +70,7 @@ function DrinkInProgress() {
   const endRecipe = () => {
     const doneRecipes = getLocalStorage('doneRecipes');
     const { strArea, strTags, strCategory } = drink;
+    const strNewTags = strTags.split(',');
 
     const recipeObj = {
       id,
@@ -81,7 +81,7 @@ function DrinkInProgress() {
       name: strDrink,
       image: strDrinkThumb,
       doneDate: new Date().toLocaleDateString(),
-      tags: strTags ? [...strTags] : [],
+      tags: strTags ? strNewTags : [],
     };
 
     if (doneRecipes) {

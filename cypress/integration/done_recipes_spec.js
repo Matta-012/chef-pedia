@@ -40,7 +40,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
+  describe.only('54 - Implemente os elementos da tela de receitas feitas respeitando os atributos descritos no protótipo', () => {
     it('Todos os data-testids estão disponíveis', () => {
       cy.get('[data-testid="filter-by-all-btn"]');
       cy.get('[data-testid="filter-by-food-btn"]');

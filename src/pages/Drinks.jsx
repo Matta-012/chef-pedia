@@ -39,7 +39,6 @@ function Drinks() {
         name: category,
       });
     } else {
-      console.log('else');
       setDrinksByCategories({
         ...drinksByCategories,
         name: '',
@@ -70,7 +69,7 @@ function Drinks() {
         </button>
       </div>
       {drinks.map((drink, index) => (
-        <Link key={ drink.idDrink } to={ `/comidas/${drink.idDrink}` }>
+        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
           <RecipeCard
             id={ drink.idDrink }
             image={ drink.strDrinkThumb }
