@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -69,14 +69,15 @@ function Meals() {
         </button>
       </div>
       {meals.map((meal, index) => (
-        <RecipeCard
-          key={ meal.idMeal }
-          id={ meal.idMeal }
-          recipe="comidas"
-          image={ meal.strMealThumb }
-          title={ meal.strMeal }
-          index={ index }
-        />
+        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+          <RecipeCard
+            id={ meal.idMeal }
+            recipe="comidas"
+            image={ meal.strMealThumb }
+            title={ meal.strMeal }
+            index={ index }
+          />
+        </Link>
       ))}
       {meals.length === 0 && !firstTime && global.alert(alertMessage)}
       {currentFilter === 'radio'
