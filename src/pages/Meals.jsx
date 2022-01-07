@@ -74,6 +74,7 @@ function Meals() {
             image={ meal.strMealThumb }
             title={ meal.strMeal }
             index={ index }
+            cardType="recipe"
           />
         </Link>
       ))}
