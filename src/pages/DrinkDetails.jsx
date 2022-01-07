@@ -1,18 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchesFromAPI';
+import { getLocalStorage } from '../helpers/manageLocalStorage';
+import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import AppContext from '../context/AppContext';
+import RecommendationCard from '../components/RecommendationCard';
 
 function DrinkDetails() {
   const { pathname } = useLocation();
   const id = pathname.split('/')[2];
   const [drink, setDrink] = useState({});
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isDone, setIsDone] = useState(true);
+  const [inProgress, setInProgress] = useState(true);
 
   const { meals } = useContext(AppContext);
 
-  const MAX_RECOMENDATION = 6;
-  const recomandations = meals.slice(0, MAX_RECOMENDATION);
+  const history = useHistory();
+
+  const MAX_RECOMMENDATION = 6;
+  const recommendations = meals.slice(0, MAX_RECOMMENDATION);
 
   useEffect(() => {
     const getDrink = async () => {
@@ -21,7 +28,25 @@ function DrinkDetails() {
     };
     getDrink();
   }, [id]);
-  console.log(drink);
+
+  useEffect(() => {
+    const doneRecipes = getLocalStorage('doneRecipes');
+    if (doneRecipes) {
+      const foundRecipe = doneRecipes.find((recipe) => recipe.id === id);
+      setIsDone(foundRecipe);
+    } else {
+      setIsDone(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      const cocktailsIds = Object.keys(inProgressRecipes.cocktails);
+      const foundRecipe = cocktailsIds.find((recipe) => recipe === id);
+      setInProgress(foundRecipe);
+    }
+  }, [id]);
 
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions, strYoutube } = drink;
 
@@ -45,49 +70,19 @@ function DrinkDetails() {
     return ingredients;
   };
 
-  const embedYoutube = () => {
-    if (strYoutube) {
-      const youtubeId = strYoutube.split('v=')[1];
-      const ampersandPosition = youtubeId.indexOf('&');
-      const NEGATIV_ONE = -1;
-      if (ampersandPosition !== NEGATIV_ONE) {
-        youtubeId.slice(0, ampersandPosition);
-      }
-      return `https://www.youtube.com/embed/${youtubeId}`;
-    }
-    return '';
-  };
-
-  const recomandationList = () => {
-    const recomandationsList = [];
-    recomandations.forEach((recomandation, i) => {
-      recomandationsList.push(
-        <li
-          key={ recomandation.idMeal }
-          data-testid={ `${i}-recomendation-card` }
-          hidden={ !(i === 0 || i === 1) }
-        >
-          <Link to={ `/comidas/${recomandation.idMeal}` }>
-            <img
-              src={ recomandation.strMealThumb }
-              alt="recomendation"
-            />
-            <h3 data-testid={ `${i}-recomendation-title` }>{recomandation.strMeal}</h3>
-          </Link>
-        </li>,
+  const recommendationList = () => {
+    const recommendationsList = [];
+    recommendations.forEach((recommendation, i) => {
+      recommendationsList.push(
+        <RecommendationCard
+          key={ recommendation.idMeal }
+          recommendation={ recommendation }
+          i={ i }
+          foodType="drink"
+        />,
       );
     });
-    return recomandationsList;
-  };
-
-  const copyText = () => {
-    const fullPathName = window.location.href;
-    navigator.clipboard.writeText(fullPathName);
-    setCopiedLink(true);
-    const INTERVAL_TIME = 3000;
-    setTimeout(() => {
-      setCopiedLink(false);
-    }, INTERVAL_TIME);
+    return recommendationsList;
   };
 
   return (
@@ -97,7 +92,7 @@ function DrinkDetails() {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ copyText }
+        onClick={ () => { copyText(setCopiedLink); } }
       >
         Manda no zap
 
@@ -111,17 +106,19 @@ function DrinkDetails() {
       <p data-testid="instructions">{strInstructions}</p>
       <iframe
         data-testid="video"
-        src={ embedYoutube() }
+        src={ embedYoutube(strYoutube) }
         allowFullScreen
         title="How to make"
       />
-      <ul>{recomandationList()}</ul>
+      <ul>{recommendationList()}</ul>
       <button
         data-testid="start-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
+        onClick={ () => { startRecipe(history, 'drink', id); } }
+        hidden={ isDone }
       >
-        Começar receita
+        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </main>
   );
