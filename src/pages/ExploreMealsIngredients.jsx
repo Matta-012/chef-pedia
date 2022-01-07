@@ -7,7 +7,11 @@ import RecipeCard from '../components/RecipeCard';
 
 export default function ExploreMealsIngredients() {
   const location = useLocation();
-  const { getIngredientsList, ingredientsList } = useContext(AppContext);
+  const {
+    getIngredientsList,
+    ingredientsList,
+    handleIngredientClick,
+  } = useContext(AppContext);
 
   useEffect(() => {
     const getIngredients = async () => {
@@ -19,7 +23,7 @@ export default function ExploreMealsIngredients() {
     };
 
     getIngredients();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (
@@ -29,13 +33,19 @@ export default function ExploreMealsIngredients() {
       <section>
         {ingredientsList.length > 0
           && ingredientsList.map(({ ingredient, ingredientImg }, index) => (
-            <RecipeCard
-              key={ ingredient }
-              image={ ingredientImg }
-              title={ ingredient }
-              index={ index }
-              cardType="ingredient"
-            />
+            <div
+              aria-hidden="true"
+              key={ index }
+              onClick={ () => handleIngredientClick('comidas', ingredient) }
+            >
+              <RecipeCard
+                key={ ingredient }
+                image={ ingredientImg }
+                title={ ingredient }
+                index={ index }
+                cardType="ingredient"
+              />
+            </div>
           ))}
       </section>
       <Footer />

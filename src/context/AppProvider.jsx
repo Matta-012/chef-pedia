@@ -7,12 +7,14 @@ import {
   getSimpleListDrinks,
   getCategoryMeals,
   getCategoryDrinks,
-  getIngredients,
+  fetchByIngredients,
   LIST_LIMIT,
 } from '../helpers/fetchesFromAPI';
 
 const MEALS_INGREDIENTS_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
 const DRINKS_INGREDIENTS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+const MEALS_BY_INGREDIENTS_URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const DRINKS_BY_INGREDIENTS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
 export default function AppProvider({ children }) {
   const [meals, setMeals] = useState([]);
@@ -53,31 +55,43 @@ export default function AppProvider({ children }) {
 
   const getIngredientsList = async (currentLocationPath) => {
     if (currentLocationPath === 'bebidas') {
-      const result = await getIngredients(DRINKS_INGREDIENTS_URL);
+      const result = await fetchByIngredients(DRINKS_INGREDIENTS_URL);
       const drinksIngredients = result.drinks
         .map(({ strIngredient1 }) => strIngredient1)
         .slice(0, LIST_LIMIT);
 
-      const ingredientList = drinksIngredients.map((ingredient) => (
-        {
-          ingredient,
-          ingredientImg: `https://www.thecocktaildb.com/images/ingredients/${ingredient.split(' ').join('%20')}.png`,
-        }
-      ));
+      const ingredientList = drinksIngredients.map((ingredient) => ({
+        ingredient,
+        ingredientImg: `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`,
+      }));
       setIngredientsList(ingredientList);
     } else {
-      const result = await getIngredients(MEALS_INGREDIENTS_URL);
+      const result = await fetchByIngredients(MEALS_INGREDIENTS_URL);
       const mealsIngredients = result.meals
         .map(({ strIngredient }) => strIngredient)
         .slice(0, LIST_LIMIT);
 
-      const ingredientList = mealsIngredients.map((ingredient) => (
-        {
-          ingredient,
-          ingredientImg: `https://www.themealdb.com/images/ingredients/${ingredient.split(' ').join('%20')}.png`,
-        }
-      ));
+      const ingredientList = mealsIngredients.map((ingredient) => ({
+        ingredient,
+        ingredientImg: `https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`,
+      }));
       setIngredientsList(ingredientList);
+    }
+  };
+
+  const handleIngredientClick = async (currentLocationPath, ingredient) => {
+    if (currentLocationPath === 'bebidas') {
+      const results = await fetchByIngredients(
+        `${DRINKS_BY_INGREDIENTS_URL}${ingredient}`,
+      );
+      setDrinks(results.drinks);
+      handleRoute('/bebidas');
+    } else {
+      const results = await fetchByIngredients(
+        `${MEALS_BY_INGREDIENTS_URL}${ingredient}`,
+      );
+      setMeals(results.meals);
+      handleRoute('/comidas');
     }
   };
 
@@ -101,6 +115,7 @@ export default function AppProvider({ children }) {
         handleRoute,
         ingredientsList,
         getIngredientsList,
+        handleIngredientClick,
       } }
     >
       {children}

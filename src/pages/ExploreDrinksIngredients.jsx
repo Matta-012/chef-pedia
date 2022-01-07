@@ -7,7 +7,11 @@ import RecipeCard from '../components/RecipeCard';
 
 export default function ExploreDrinksIngredients() {
   const location = useLocation();
-  const { getIngredientsList, ingredientsList } = useContext(AppContext);
+  const {
+    getIngredientsList,
+    ingredientsList,
+    handleIngredientClick,
+  } = useContext(AppContext);
 
   useEffect(() => {
     const getIngredients = async () => {
@@ -29,13 +33,19 @@ export default function ExploreDrinksIngredients() {
       <section>
         {ingredientsList.length > 0
           && ingredientsList.map(({ ingredient, ingredientImg }, index) => (
-            <RecipeCard
-              key={ ingredient }
-              image={ ingredientImg }
-              title={ ingredient }
-              index={ index }
-              cardType="ingredient"
-            />
+            <div
+              aria-hidden="true"
+              key={ index }
+              onClick={ () => handleIngredientClick('bebidas', ingredient) }
+            >
+              <RecipeCard
+                key={ ingredient }
+                image={ ingredientImg }
+                title={ ingredient }
+                index={ index }
+                cardType="ingredient"
+              />
+            </div>
           ))}
       </section>
       <Footer />
