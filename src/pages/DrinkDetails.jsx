@@ -19,8 +19,6 @@ function DrinkDetails() {
 
   const history = useHistory();
 
-  console.log(drink);
-
   const MAX_RECOMMENDATION = 6;
   const recommendations = meals.slice(0, MAX_RECOMMENDATION);
 
