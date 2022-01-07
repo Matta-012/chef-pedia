@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
-import createFavoriteObj from '../helpers/favoriteHelpers';
+import { createFavoriteObj, isRecipeFavorite } from '../helpers/favoriteHelpers';
 
-function FavoriteButton({ food, foodType }) {
-  const [isFavorite, setIsFavorite] = useState(false);
+function FavoriteButton({ id, food, foodType }) {
+  const [isFavorite, setIsFavorite] = useState(true);
+
+  useEffect(() => {
+    setIsFavorite(isRecipeFavorite(id));
+  }, [id]);
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -33,16 +37,22 @@ function FavoriteButton({ food, foodType }) {
   };
 
   return (
-    <button data-testid="favorite-btn" type="button" onClick={ handleFavorite }>
+    <button
+      data-testid="favorite-btn"
+      type="button"
+      onClick={ handleFavorite }
+      src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+    >
       <img
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         alt="coraçao"
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       />
     </button>
   );
 }
 
 FavoriteButton.propTypes = {
+  id: PropTypes.string.isRequired,
   foodType: PropTypes.string.isRequired,
   food: PropTypes.objectOf(PropTypes.any).isRequired,
 };

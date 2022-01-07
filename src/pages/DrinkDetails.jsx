@@ -22,8 +22,6 @@ function DrinkDetails() {
   const MAX_RECOMMENDATION = 6;
   const recommendations = meals.slice(0, MAX_RECOMMENDATION);
 
-  console.log(drink);
-
   useEffect(() => {
     const getDrink = async () => {
       const fetchedDrink = await fetchDrinkById(id);

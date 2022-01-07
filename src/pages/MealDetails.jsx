@@ -21,8 +21,6 @@ function MealDetails() {
 
   const { drinks } = useContext(AppContext);
 
-  console.log(meal);
-
   useEffect(() => {
     const getMeal = async () => {
       const fetchedMeal = await fetchMealById(id);
