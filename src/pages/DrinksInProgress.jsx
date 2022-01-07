@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
+import FavoriteButton from '../components/FavoriteButton';
 
 function DrinkInProgress() {
   const { pathname } = useLocation();
@@ -39,7 +40,11 @@ function DrinkInProgress() {
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (drink[`strIngredient${i}`]) {
         ingredients.push(
-          <label htmlFor={ `strIngredient${i}` } key={ drink[`strIngredient${i}`] }>
+          <label
+            htmlFor={ `strIngredient${i}` }
+            key={ drink[`strIngredient${i}`] }
+            data-testid="ingredient-step"
+          >
             {drink[`strIngredient${i}`]}
             {drink[`strMeasure${i}`]}
             <input
@@ -59,7 +64,8 @@ function DrinkInProgress() {
 
   const copyText = () => {
     const fullPathName = window.location.href;
-    navigator.clipboard.writeText(fullPathName);
+    const textToCopy = fullPathName.replace('/in-progress', '');
+    navigator.clipboard.writeText(textToCopy);
     setCopiedLink(true);
     const INTERVAL_TIME = 3000;
     setTimeout(() => {
@@ -112,14 +118,14 @@ function DrinkInProgress() {
 
       </button>
       {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <button data-testid="favorite-btn" type="button">Favorite</button>
+      <FavoriteButton id={ id } food={ drink } foodType="drink" />
       <span data-testid="recipe-category">{strAlcoholic}</span>
       <section>
         {getIngredientsList()}
       </section>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ endRecipe }

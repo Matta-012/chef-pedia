@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
+import FavoriteButton from '../components/FavoriteButton';
 
 function MealInProgress() {
   const { pathname } = useLocation();
@@ -39,7 +40,11 @@ function MealInProgress() {
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (meal[`strIngredient${i}`]) {
         ingredients.push(
-          <label htmlFor={ `strIngredient${i}` } key={ meal[`strIngredient${i}`] }>
+          <label
+            htmlFor={ `strIngredient${i}` }
+            key={ meal[`strIngredient${i}`] }
+            data-testid="ingredient-step"
+          >
             {meal[`strIngredient${i}`]}
             {meal[`strMeasure${i}`]}
             <input
@@ -58,7 +63,8 @@ function MealInProgress() {
 
   const copyText = () => {
     const fullPathName = window.location.href;
-    navigator.clipboard.writeText(fullPathName);
+    const textToCopy = fullPathName.replace('/in-progress', '');
+    navigator.clipboard.writeText(textToCopy);
     setCopiedLink(true);
     const INTERVAL_TIME = 3000;
     const timeOutId = setTimeout(() => {
@@ -112,14 +118,14 @@ function MealInProgress() {
 
       </button>
       {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <button data-testid="favorite-btn" type="button">Favorite ♡</button>
+      <FavoriteButton id={ id } food={ meal } foodType="meal" />
       <span data-testid="recipe-category">{strCategory}</span>
       <section>
         {getIngredientsList()}
       </section>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ endRecipe }
