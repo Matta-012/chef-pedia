@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
-import { filterDrinksByCategory } from '../helpers/fetchesFromAPI';
+import { filterDrinksByCategory, getSimpleListDrinks } from '../helpers/fetchesFromAPI';
 
 function Drinks() {
   const { drinks,
@@ -25,17 +25,28 @@ function Drinks() {
     if (!isCategoryClicked) {
       setCurrentFilter('category');
       filterDrinksByCategory(URL, category, setDrinks);
-      setCurrentFilter('category');
-      filterDrinksByCategory(URL, category, setDrinks);
       setDrinksByCategories({
         ...drinksByCategories,
         name: category,
         drinksInList: drinks,
       });
+      setIsCategoryClicked(true);
+    } else if (isCategoryClicked && drinksByCategories.name !== category) {
+      setCurrentFilter('category');
+      filterDrinksByCategory(URL, category, setDrinks);
+      setDrinksByCategories({
+        ...drinksByCategories,
+        name: category,
+      });
     } else {
+      console.log('else');
+      setDrinksByCategories({
+        ...drinksByCategories,
+        name: '',
+      });
       setDrinks(drinksByCategories.drinksInList);
+      setIsCategoryClicked(false);
     }
-    setIsCategoryClicked(!isCategoryClicked);
   };
 
   return (
@@ -50,15 +61,24 @@ function Drinks() {
             filterCategory={ filterCategory }
           />
         ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => getSimpleListDrinks(setDrinks) }
+        >
+          All
+        </button>
       </div>
       {drinks.map((drink, index) => (
-        <RecipeCard
-          key={ drink.idDrink }
-          image={ drink.strDrinkThumb }
-          title={ drink.strDrink }
-          index={ index }
-          cardType="recipe"
-        />
+        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
+          <RecipeCard
+            id={ drink.idDrink }
+            image={ drink.strDrinkThumb }
+            title={ drink.strDrink }
+            index={ index }
+            cardType="recipe"
+          />
+        </Link>
       ))}
       {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
       {currentFilter === 'radio'

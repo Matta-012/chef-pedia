@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
-import { filterMealsByCategory } from '../helpers/fetchesFromAPI';
+import { filterMealsByCategory, getSimpleListMeals } from '../helpers/fetchesFromAPI';
 
 function Meals() {
   const { meals,
@@ -29,11 +29,23 @@ function Meals() {
         name: category,
         mealsInList: meals,
       });
+      setIsCategoryClicked(true);
+    } else if (isCategoryClicked && mealsByCategories.name !== category) {
+      setCurrentFilter('category');
+      filterMealsByCategory(URL, category, setMeals);
+      setMealsByCategories({
+        ...mealsByCategories,
+        name: category,
+      });
     } else {
+      console.log('else');
+      setMealsByCategories({
+        ...mealsByCategories,
+        name: '',
+      });
       setMeals(mealsByCategories.mealsInList);
+      setIsCategoryClicked(false);
     }
-
-    setIsCategoryClicked(!isCategoryClicked);
   };
 
   return (
@@ -48,15 +60,24 @@ function Meals() {
             filterCategory={ filterCategory }
           />
         ))}
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => getSimpleListMeals(setMeals) }
+        >
+          All
+        </button>
       </div>
       {meals.map((meal, index) => (
-        <RecipeCard
-          key={ meal.idMeal }
-          image={ meal.strMealThumb }
-          title={ meal.strMeal }
-          index={ index }
-          cardType="recipe"
-        />
+        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+          <RecipeCard
+            id={ meal.idMeal }
+            image={ meal.strMealThumb }
+            title={ meal.strMeal }
+            index={ index }
+            cardType="recipe"
+          />
+        </Link>
       ))}
       {meals.length === 0 && !firstTime && global.alert(alertMessage)}
       {currentFilter === 'radio'
