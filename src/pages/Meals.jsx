@@ -38,7 +38,6 @@ function Meals() {
         name: category,
       });
     } else {
-      console.log('else');
       setMealsByCategories({
         ...mealsByCategories,
         name: '',
@@ -72,10 +71,10 @@ function Meals() {
         <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
           <RecipeCard
             id={ meal.idMeal }
-            recipe="comidas"
             image={ meal.strMealThumb }
             title={ meal.strMeal }
             index={ index }
+            cardType="recipe"
           />
         </Link>
       ))}

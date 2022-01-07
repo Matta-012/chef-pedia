@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function RecipeCard({ image, title, index }) {
+function RecipeCard({ image, title, index, cardType }) {
   return (
-    <div data-testid={ `${index}-recipe-card` }>
+    <div data-testid={ `${index}-${cardType}-card` }>
       <img
         src={ image }
         alt=""
@@ -18,6 +18,7 @@ function RecipeCard({ image, title, index }) {
 RecipeCard.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  cardType: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };
 
