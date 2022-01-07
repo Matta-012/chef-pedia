@@ -39,7 +39,6 @@ function Drinks() {
         name: category,
       });
     } else {
-      console.log('else');
       setDrinksByCategories({
         ...drinksByCategories,
         name: '',

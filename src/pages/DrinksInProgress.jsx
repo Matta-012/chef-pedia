@@ -19,7 +19,6 @@ function DrinkInProgress() {
     };
     getDrink();
   }, [id]);
-  console.log(drink);
 
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = drink;
 

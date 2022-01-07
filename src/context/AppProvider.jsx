@@ -79,18 +79,24 @@ export default function AppProvider({ children }) {
     }
   };
 
+  const sliceAPIResponse = (response) => (
+    response.length > LIST_LIMIT ? response.slice(0, LIST_LIMIT) : response
+  );
+
   const handleIngredientClick = async (currentLocationPath, ingredient) => {
     if (currentLocationPath === 'bebidas') {
       const results = await fetchByIngredients(
         `${DRINKS_BY_INGREDIENTS_URL}${ingredient}`,
       );
-      setDrinks(results.drinks);
+      const slicedResponse = sliceAPIResponse(results.drinks);
+      setDrinks(slicedResponse);
       handleRoute('/bebidas');
     } else {
       const results = await fetchByIngredients(
         `${MEALS_BY_INGREDIENTS_URL}${ingredient}`,
       );
-      setMeals(results.meals);
+      const slicedResponse = sliceAPIResponse(results.meals);
+      setMeals(slicedResponse);
       handleRoute('/comidas');
     }
   };

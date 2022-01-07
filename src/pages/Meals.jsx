@@ -38,7 +38,6 @@ function Meals() {
         name: category,
       });
     } else {
-      console.log('else');
       setMealsByCategories({
         ...mealsByCategories,
         name: '',
