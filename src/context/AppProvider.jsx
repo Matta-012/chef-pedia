@@ -122,6 +122,7 @@ export default function AppProvider({ children }) {
         ingredientsList,
         getIngredientsList,
         handleIngredientClick,
+        sliceAPIResponse,
       } }
     >
       {children}
