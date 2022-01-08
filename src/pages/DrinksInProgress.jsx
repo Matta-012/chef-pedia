@@ -69,12 +69,12 @@ function DrinkInProgress() {
 
   const endRecipe = () => {
     const doneRecipes = getLocalStorage('doneRecipes');
-    const { strArea, strTags, strCategory } = drink;
+    const { strTags, strCategory } = drink;
 
     const recipeObj = {
       id,
-      type: 'comida',
-      area: strArea,
+      type: 'bebida',
+      area: '',
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
       name: strDrink,
