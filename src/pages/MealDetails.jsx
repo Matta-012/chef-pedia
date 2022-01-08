@@ -45,6 +45,8 @@ function MealDetails() {
       const mealsIds = Object.keys(inProgressRecipes.meals);
       const foundRecipe = mealsIds.find((recipe) => recipe === id);
       setInProgress(foundRecipe);
+    } else {
+      setInProgress(false);
     }
   }, [id]);
 

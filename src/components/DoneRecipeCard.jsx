@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import share from '../images/shareIcon.svg';
 
 function DoneRecipeCard({
   index,
@@ -8,7 +9,9 @@ function DoneRecipeCard({
   name,
   doneDate,
   image,
-
+  type,
+  alcoholicOrNot,
+  area,
 }) {
   return (
     <div>
@@ -18,10 +21,25 @@ function DoneRecipeCard({
         data-testid={ `${index}-horizontal-image` }
         style={ { width: '250px' } }
       />
-      <p data-testid={ `${index}-horizontal-top-text` }>{category}</p>
+      {type === 'comida'
+        ? (
+          <div data-testid={ `${index}-horizontal-top-text` }>
+            <span>{area}</span>
+            {' - '}
+            <span>{category}</span>
+          </div>
+        ) : (
+          <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
+        )}
       <p data-testid={ `${index}-horizontal-name` }>{name}</p>
       <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
-      <p data-testid={ `${index}-horizontal-share-btn` }>Share</p>
+      <button
+        type="button"
+        src={ share }
+        data-testid={ `${index}-horizontal-share-btn` }
+      >
+        <img src={ share } alt="Icone de compartilhar" />
+      </button>
       {tags.map((tag) => (
         <p key={ index } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
       ))}
@@ -30,6 +48,8 @@ function DoneRecipeCard({
 }
 
 DoneRecipeCard.propTypes = {
+  alcoholicOrNot: PropTypes.string.isRequired,
+  area: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   doneDate: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
@@ -38,6 +58,7 @@ DoneRecipeCard.propTypes = {
   tags: PropTypes.shape({
     map: PropTypes.func,
   }).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default DoneRecipeCard;

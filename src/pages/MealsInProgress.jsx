@@ -69,7 +69,7 @@ function MealInProgress() {
 
   const endRecipe = () => {
     const doneRecipes = getLocalStorage('doneRecipes');
-    const { strArea, strTags, strAlcoholic } = meal;
+    const { strArea, strTags } = meal;
     const strNewTags = strTags.split(',');
 
     const recipeObj = {
@@ -77,7 +77,7 @@ function MealInProgress() {
       type: 'comida',
       area: strArea,
       category: strCategory,
-      alcoholicOrNot: strAlcoholic,
+      alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
       doneDate: new Date().toLocaleDateString(),

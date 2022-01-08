@@ -46,6 +46,8 @@ function DrinkDetails() {
       const cocktailsIds = Object.keys(inProgressRecipes.cocktails);
       const foundRecipe = cocktailsIds.find((recipe) => recipe === id);
       setInProgress(foundRecipe);
+    } else {
+      setInProgress(false);
     }
   }, [id]);
 
