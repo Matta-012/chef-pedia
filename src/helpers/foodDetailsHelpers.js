@@ -24,6 +24,17 @@ const copyText = (setCopiedLink) => {
   }, INTERVAL_TIME);
 };
 
+const copyRecipeDoneText = (setCopiedLink, type, id) => {
+  const fullPathName = `http://localhost:3000/${type}s/${id}`;
+  navigator.clipboard.writeText(fullPathName);
+  setCopiedLink(true);
+  const INTERVAL_TIME = 3000;
+  const timeOutId = setTimeout(() => {
+    setCopiedLink(false);
+    clearTimeout(timeOutId);
+  }, INTERVAL_TIME);
+};
+
 const startRecipe = (history, foodType, id) => {
   if (foodType === 'drink') {
     const inProgressRecipes = getLocalStorage('inProgressRecipes');
@@ -55,4 +66,4 @@ const startRecipe = (history, foodType, id) => {
   }
 };
 
-export { embedYoutube, copyText, startRecipe };
+export { embedYoutube, copyText, startRecipe, copyRecipeDoneText };

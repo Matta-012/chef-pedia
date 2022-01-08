@@ -69,7 +69,14 @@ function DrinkInProgress() {
 
   const endRecipe = () => {
     const doneRecipes = getLocalStorage('doneRecipes');
-    const { strTags, strCategory } = drink;
+
+    const { strCategory, strTags } = drink;
+    let strNewTags;
+    if (strTags) {
+      strNewTags = strTags.split(',');
+    } else {
+      strNewTags = [];
+    }
 
     const recipeObj = {
       id,
@@ -80,7 +87,7 @@ function DrinkInProgress() {
       name: strDrink,
       image: strDrinkThumb,
       doneDate: new Date().toLocaleDateString(),
-      tags: strTags ? [...strTags] : [],
+      tags: strNewTags,
     };
 
     if (doneRecipes) {
