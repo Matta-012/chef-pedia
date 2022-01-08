@@ -60,7 +60,7 @@ describe('Done recipes screen', () => {
     });
   });
 
-  describe.only('55 - Desenvolva a tela de maneira que, caso a receita do card seja uma comida, ela deve possuir: a foto da receita, o nome, a categoria, a area, a data em que a pessoa fez a receita, as 2 primeiras tags retornadas pela API e um botão de compartilhar', () => {
+  describe('55 - Desenvolva a tela de maneira que, caso a receita do card seja uma comida, ela deve possuir: a foto da receita, o nome, a categoria, a area, a data em que a pessoa fez a receita, as 2 primeiras tags retornadas pela API e um botão de compartilhar', () => {
     it('O card possui os atributos corretos de uma comida', () => {
       cy.get('[data-testid="0-horizontal-image"]')
         .should('have.attr', 'src')

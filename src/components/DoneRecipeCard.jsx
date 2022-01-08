@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { copyRecipeDoneText } from '../helpers/foodDetailsHelpers';
 import share from '../images/shareIcon.svg';
 
@@ -18,12 +19,14 @@ function DoneRecipeCard({
   const [isCopied, setIsCopied] = useState(false);
   return (
     <div>
-      <img
-        src={ image }
-        alt="imagem"
-        data-testid={ `${index}-horizontal-image` }
-        style={ { width: '250px' } }
-      />
+      <Link to={ `/${type}s/${id}` }>
+        <img
+          src={ image }
+          alt="imagem"
+          data-testid={ `${index}-horizontal-image` }
+          style={ { width: '250px' } }
+        />
+      </Link>
       {type === 'comida'
         ? (
           <div data-testid={ `${index}-horizontal-top-text` }>
@@ -34,7 +37,9 @@ function DoneRecipeCard({
         ) : (
           <span data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</span>
         )}
-      <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+      <Link to={ `/${type}s/${id}` }>
+        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+      </Link>
       <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
       <button
         type="button"

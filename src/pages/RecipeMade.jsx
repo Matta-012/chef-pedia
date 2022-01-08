@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 
 export default function RecipeMade() {
   const doneRecipes = getLocalStorage('doneRecipes');
-  console.log(doneRecipes);
+  const [recipeByType, setRecipeByType] = useState([]);
+
+  useEffect(() => {
+    setRecipeByType(doneRecipes);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const filterByType = (type) => {
+    const filteredRecipe = doneRecipes.filter((recipe) => recipe.type === type);
+    setRecipeByType(filteredRecipe);
+  };
 
   return (
     <div>
@@ -15,6 +25,7 @@ export default function RecipeMade() {
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => setRecipeByType(doneRecipes) }
         >
           All
         </button>
@@ -22,6 +33,7 @@ export default function RecipeMade() {
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          onClick={ () => filterByType('comida') }
         >
           Food
         </button>
@@ -29,13 +41,14 @@ export default function RecipeMade() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => filterByType('bebida') }
         >
           Drinks
         </button>
 
-        {doneRecipes
+        {recipeByType
           ? (
-            doneRecipes.map((doneRecipe, index) => (
+            recipeByType.map((doneRecipe, index) => (
               <DoneRecipeCard
                 key={ doneRecipe.id }
                 id={ doneRecipe.id }
