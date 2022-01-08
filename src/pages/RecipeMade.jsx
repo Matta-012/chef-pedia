@@ -38,6 +38,7 @@ export default function RecipeMade() {
             doneRecipes.map((doneRecipe, index) => (
               <DoneRecipeCard
                 key={ doneRecipe.id }
+                id={ doneRecipe.id }
                 tags={ doneRecipe.tags }
                 index={ index }
                 category={ doneRecipe.category }

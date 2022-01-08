@@ -77,7 +77,6 @@ function DrinkInProgress() {
     } else {
       strNewTags = [];
     }
-    const { strTags, strCategory } = drink;
 
     const recipeObj = {
       id,

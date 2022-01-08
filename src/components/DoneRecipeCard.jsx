@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
+import { copyRecipeDoneText } from '../helpers/foodDetailsHelpers';
 import share from '../images/shareIcon.svg';
 
 function DoneRecipeCard({
@@ -12,7 +13,9 @@ function DoneRecipeCard({
   type,
   alcoholicOrNot,
   area,
+  id,
 }) {
+  const [isCopied, setIsCopied] = useState(false);
   return (
     <div>
       <img
@@ -37,9 +40,11 @@ function DoneRecipeCard({
         type="button"
         src={ share }
         data-testid={ `${index}-horizontal-share-btn` }
+        onClick={ () => copyRecipeDoneText(setIsCopied, type, id) }
       >
         <img src={ share } alt="Icone de compartilhar" />
       </button>
+      {isCopied ? <span>Link copiado!</span> : ''}
       {tags.map((tag) => (
         <p key={ index } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
       ))}
@@ -54,6 +59,7 @@ DoneRecipeCard.propTypes = {
   doneDate: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   tags: PropTypes.shape({
     map: PropTypes.func,
