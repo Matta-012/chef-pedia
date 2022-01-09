@@ -17,11 +17,13 @@ import ExploreMealsIngredients from './pages/ExploreMealsIngredients';
 import ExploreLocal from './pages/ExploreLocal';
 import DrinksInProgress from './pages/DrinksInProgress';
 import MealsInProgress from './pages/MealsInProgress';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
     <Switch>
-      <Route path="/explorar/comidas/area" component={ ExploreLocal } />
+      <Route path="/comidas/:id/in-progress" component={ MealsInProgress } />
+      <Route path="/bebidas/:id/in-progress" component={ DrinksInProgress } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ ExploreMealsIngredients }
@@ -30,20 +32,20 @@ function App() {
         path="/explorar/bebidas/ingredientes"
         component={ ExploreDrinksIngredients }
       />
-      <Route path="/comidas/:id/in-progress" component={ MealsInProgress } />
-      <Route path="/bebidas/:id/in-progress" component={ DrinksInProgress } />
+      <Route path="/explorar/comidas/area" component={ ExploreLocal } />
+      <Route path="/comidas/:mealId" component={ MealDetails } />
+      <Route path="/bebidas/:drinkId" component={ DrinkDetails } />
       <Route path="/explorar/comidas" component={ ExploreMeals } />
-      <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+      <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
       <Route path="/receitas-principais" component={ MainRecipe } />
       <Route path="/receitas-feitas" component={ RecipeMade } />
       <Route path="/receitas-favoritas" component={ FavoritesRecipes } />
-      <Route path="/perfil" component={ Profile } />
-      <Route path="/comidas/:mealId" component={ MealDetails } />
       <Route path="/comidas" component={ Meals } />
-      <Route path="/bebidas/:drinkId" component={ DrinkDetails } />
       <Route path="/bebidas" component={ Drinks } />
-      <Route path="/explorar" component={ Explore } />
-      <Route path="/" component={ Login } />
+      <Route path="/perfil" component={ Profile } />
+      <Route exact path="/explorar" component={ Explore } />
+      <Route exact path="/" component={ Login } />
+      <Route component={ PageNotFound } />
     </Switch>
   );
 }
