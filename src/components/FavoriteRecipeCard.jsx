@@ -3,18 +3,18 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { copyRecipeDoneText } from '../helpers/foodDetailsHelpers';
 import share from '../images/shareIcon.svg';
+import blackHeart from '../images/blackHeartIcon.svg';
 
-function DoneRecipeCard({
+function FavoriteRecipeCard({
   index,
-  tags,
   category,
   name,
-  doneDate,
   image,
   type,
   alcoholicOrNot,
   area,
   id,
+  deleteFromLocalStorage,
 }) {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -28,6 +28,7 @@ function DoneRecipeCard({
           style={ { width: '250px' } }
         />
       </Link>
+
       {type === 'comida'
         ? (
           <div data-testid={ `${index}-horizontal-top-text` }>
@@ -41,36 +42,41 @@ function DoneRecipeCard({
       <Link to={ `/${type}s/${id}` }>
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+
+      {isCopied ? <div>Link copiado!</div> : ''}
       <button
         type="button"
         src={ share }
         data-testid={ `${index}-horizontal-share-btn` }
         onClick={ () => copyRecipeDoneText(setIsCopied, type, id) }
       >
-        <img src={ share } alt="Icone de compartilhar" />
+        <img src={ share } alt="ícone de compartilhar" />
       </button>
-      {isCopied ? <span>Link copiado!</span> : ''}
-      {tags.map((tag) => (
-        <p key={ index } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
-      ))}
+
+      <button
+        type="button"
+        onClick={ () => deleteFromLocalStorage(id) }
+      >
+        <img
+          src={ blackHeart }
+          alt="Ícone de desfavoritar"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+        />
+      </button>
     </div>
   );
 }
 
-DoneRecipeCard.propTypes = {
+FavoriteRecipeCard.propTypes = {
   alcoholicOrNot: PropTypes.string.isRequired,
   area: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  doneDate: PropTypes.string.isRequired,
+  deleteFromLocalStorage: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  tags: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
   type: PropTypes.string.isRequired,
 };
 
-export default DoneRecipeCard;
+export default FavoriteRecipeCard;
