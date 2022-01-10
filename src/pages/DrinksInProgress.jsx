@@ -30,7 +30,7 @@ function DrinkInProgress() {
     for (let i = 0; i < ingredients.length; i += 1) {
       ingredientsArr.push(ingredients[i].checked);
     }
-    const allDone = ingredientsArr.every((element) => element === true);
+    const allDone = ingredientsArr.every((element) => element);
     setRecipeFinished(allDone);
   };
 
