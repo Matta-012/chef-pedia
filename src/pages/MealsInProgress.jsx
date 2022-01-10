@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
+import FavoriteButton from '../components/FavoriteButton';
+import IngredientCheckbox from '../components/IngredientCheckbox';
 
 function MealInProgress() {
   const { pathname } = useLocation();
@@ -22,8 +24,9 @@ function MealInProgress() {
 
   const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
 
-  const verifyCheckbox = () => {
+  const verifyCheckbox = ({ target }) => {
     const ingredients = document.getElementsByClassName('ingredient-checkbox');
+    console.log(target);
     const ingredientsArr = [];
     for (let i = 0; i < ingredients.length; i += 1) {
       ingredientsArr.push(ingredients[i].checked);
@@ -35,21 +38,16 @@ function MealInProgress() {
   const getIngredientsList = () => {
     const ingredients = [];
     const MAX_INGREDIENTS = 20;
-    const ONE = 1;
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (meal[`strIngredient${i}`]) {
         ingredients.push(
-          <label htmlFor={ `strIngredient${i}` } key={ meal[`strIngredient${i}`] }>
-            {meal[`strIngredient${i}`]}
-            {meal[`strMeasure${i}`]}
-            <input
-              id={ `strIngredient${i}` }
-              data-testid={ `${i - ONE}-ingredient-name-and-measure` }
-              onClick={ verifyCheckbox }
-              className="ingredient-checkbox"
-              type="checkbox"
-            />
-          </label>,
+          <IngredientCheckbox
+            key={ meal[`strIngredient${i}`] }
+            foodType="meal"
+            food={ meal }
+            verifyCheckbox={ verifyCheckbox }
+            i={ i }
+          />,
         );
       }
     }
@@ -58,7 +56,8 @@ function MealInProgress() {
 
   const copyText = () => {
     const fullPathName = window.location.href;
-    navigator.clipboard.writeText(fullPathName);
+    const textToCopy = fullPathName.replace('/in-progress', '');
+    navigator.clipboard.writeText(textToCopy);
     setCopiedLink(true);
     const INTERVAL_TIME = 3000;
     const timeOutId = setTimeout(() => {
@@ -113,14 +112,14 @@ function MealInProgress() {
 
       </button>
       {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <button data-testid="favorite-btn" type="button">Favorite ♡</button>
+      <FavoriteButton id={ id } food={ meal } foodType="meal" />
       <span data-testid="recipe-category">{strCategory}</span>
       <section>
         {getIngredientsList()}
       </section>
       <p data-testid="instructions">{strInstructions}</p>
       <button
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
         type="button"
         style={ { position: 'fixed', bottom: '0px' } }
         onClick={ endRecipe }
