@@ -9,7 +9,6 @@ export default function RecipeMade() {
 
   useEffect(() => {
     setRecipeByType(doneRecipes);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filterByType = (type) => {

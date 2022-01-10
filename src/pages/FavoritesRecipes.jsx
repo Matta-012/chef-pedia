@@ -9,7 +9,6 @@ export default function FavoritesRecipes() {
 
   useEffect(() => {
     setRecipeByType(favoriteRecipes);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filterByType = (type) => {

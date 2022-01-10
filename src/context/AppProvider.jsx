@@ -33,12 +33,10 @@ export default function AppProvider({ children }) {
 
   useEffect(() => {
     getSimpleListMeals(setMeals);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     getSimpleListDrinks(setDrinks);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

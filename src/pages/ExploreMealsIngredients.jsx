@@ -23,7 +23,6 @@ export default function ExploreMealsIngredients() {
     };
 
     getIngredients();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   return (

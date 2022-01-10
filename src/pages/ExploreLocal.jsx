@@ -37,7 +37,6 @@ export default function ExploreLocal() {
       setMeals(mealsByArea);
     };
     fetchMealsByArea();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areaFilter]);
 
   const handleDropdownChange = ({ target }) => {
