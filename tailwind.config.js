@@ -5,8 +5,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'verdeClaro': '#3bb095',
-        'pretoClaro': '#312422',
+        'cards-icons': '#FD8061',
+        'inputs': '#BFC6DC',
+        'titles-text': '#1C1C1C',
+        'menu-itens': '#BABABA',
+        'recipe-name': '#FCFCFC',
+        'country-list': '#82889E',
+        'login-wave': '#F8F8F8',
+        'login-bg': '#FD8061',
       }
     },
   },
