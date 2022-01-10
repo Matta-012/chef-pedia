@@ -34,7 +34,7 @@ export default function Login({ history }) {
   };
 
   return (
-    <div className="login-form">
+    <div className="login-form bg-slate-600">
       <LoginForm
         loginInfo={ loginInfo }
         handleChange={ handleLoginChange }

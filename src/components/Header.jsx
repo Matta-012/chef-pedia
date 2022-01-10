@@ -25,7 +25,7 @@ function Header() {
 
   return (
     <header>
-      <h1 data-testid="page-title">Header</h1>
+      <h1 data-testid="page-title" className="text-red-700">Header</h1>
       <Link to="/perfil">
         <div>
           <img
