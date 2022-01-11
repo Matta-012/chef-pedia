@@ -52,36 +52,56 @@ function Meals() {
       <Header />
       <h1 data-testid="page-title">Comidas</h1>
       <div>
-        {categoriesMeals.map((category) => (
-          <FilterCategory
-            key={ category.strCategory }
-            categoryName={ category.strCategory }
-            filterCategory={ filterCategory }
-          />
-        ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => getSimpleListMeals(setMeals) }
-        >
-          All
-        </button>
+        <div className="grid grid-cols-3 p-6 gap-y-2">
+          <div className="mx-auto">
+            <button
+              type="button"
+              data-testid="All-category-filter"
+              onClick={ () => getSimpleListMeals(setMeals) }
+              className="border border-login-bg text-login-bg w-24 rounded-xl"
+            >
+              All
+            </button>
+          </div>
+          {categoriesMeals.map((category) => (
+            <FilterCategory
+              key={ category.strCategory }
+              categoryName={ category.strCategory }
+              filterCategory={ filterCategory }
+            />
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-5 px-4 mb-6 sm:grid-cols-3">
+          {meals.map((meal, index) => (
+            <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+              <RecipeCard
+                id={ meal.idMeal }
+                image={ meal.strMealThumb }
+                title={ meal.strMeal }
+                index={ index }
+                cardType="recipe"
+              />
+            </Link>
+          ))}
+        </div>
+        {meals.length === 0 && !firstTime && global.alert(alertMessage)}
+        {currentFilter === 'radio'
+        && meals.length === 1
+        && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
+
+        {/* <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+          <div class="md:flex">
+            <div class="md:shrink-0">
+              <img class="h-48 w-full object-cover md:h-full md:w-48" src="sorvetin.png" alt="Man looking at item at a store"/>
+            </div>
+            <div class="p-8">
+              <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div>
+              <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Finding customers for your new business</a>
+              <p class="mt-2 text-gray-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
+            </div>
+          </div>
+        </div> */}
       </div>
-      {meals.map((meal, index) => (
-        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
-          <RecipeCard
-            id={ meal.idMeal }
-            image={ meal.strMealThumb }
-            title={ meal.strMeal }
-            index={ index }
-            cardType="recipe"
-          />
-        </Link>
-      ))}
-      {meals.length === 0 && !firstTime && global.alert(alertMessage)}
-      {currentFilter === 'radio'
-      && meals.length === 1
-      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Footer />
     </div>
   );
