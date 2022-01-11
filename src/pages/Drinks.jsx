@@ -58,7 +58,7 @@ function Drinks() {
       >
         Bebidas
       </h1>
-      <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3">
+      <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3 mx-4 md:mx-auto md:w-3/4 lg:w-3/5">
         <div className="mx-auto">
           <button
             type="button"
@@ -74,7 +74,7 @@ function Drinks() {
             key={ category.strCategory }
             categoryName={ category.strCategory }
             filterCategory={ filterCategory }
-            classes="border border-login-bg text-login-bg w-40 rounded-xl drink-category-btn hover:bg-login-bg hover:text-white transition duration-200"
+            classes="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
           />
         ))}
       </div>

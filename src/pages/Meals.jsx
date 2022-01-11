@@ -58,7 +58,7 @@ function Meals() {
         Comidas
       </h1>
       <div>
-        <div className="grid grid-cols-3 py-6 gap-y-2">
+        <div className="grid grid-cols-3 py-6 gap-y-2 md:w-3/5 lg:w-2/5 md:mx-auto mx-4">
           <div className="mx-auto">
             <button
               type="button"

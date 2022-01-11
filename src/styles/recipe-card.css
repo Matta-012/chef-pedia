@@ -2,16 +2,23 @@
   min-width: 140px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 360px) {
   .meal-category-btn {
     font-size: 0.98em;
     width: 85px;
   }
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 375px) {
   .drink-category-btn {
     font-size: 0.9em;
-    width: 150px;
+    width: 140px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .drink-category-btn {
+    font-size: 0.85em;
+    width: 135px;
   }
 }
