@@ -2,6 +2,14 @@
   min-width: 140px;
 }
 
+.card-shadow {
+  box-shadow: 5px 5px 15px rgb(170, 170, 170);
+}
+
+.card-shadow:hover {
+  box-shadow: 5px 5px 5px rgb(170, 170, 170);
+}
+
 @media screen and (max-width: 360px) {
   .meal-category-btn {
     font-size: 0.98em;
