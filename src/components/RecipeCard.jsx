@@ -6,7 +6,7 @@ function RecipeCard({ image, title, index, cardType }) {
   return (
     <div
       data-testid={ `${index}-${cardType}-card` }
-      className="rounded-xl recipe-card"
+      className="recipe-card"
     >
       <div className="shrink-0">
         <img
@@ -18,7 +18,7 @@ function RecipeCard({ image, title, index, cardType }) {
       </div>
       <h2
         data-testid={ `${index}-card-name` }
-        className="py-2 text-xl text-center text-white font-semibold bg-login-bg rounded-b-xl"
+        className="py-2 text-xl text-center text-white font-semibold bg-login-bg rounded-b-xl lg:py-4 lg:text-2xl"
       >
         { title }
       </h2>
