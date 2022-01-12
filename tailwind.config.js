@@ -13,6 +13,9 @@ module.exports = {
         'country-list': '#82889E',
         'login-wave': '#F8F8F8',
         'login-bg': '#FD8061',
+      },
+      backgroundImage: {
+        'wave-pattern': "url('/home/matta/Documentos/Projetos/Chef-Pedia/src/images/waveBg.svg')",
       }
     },
   },

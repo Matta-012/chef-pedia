@@ -8,7 +8,7 @@ function LoginForm({
   handleFormSubmit,
 }) {
   return (
-    <form onSubmit={ handleFormSubmit }>
+    <form onSubmit={ handleFormSubmit } className="flex flex-row items-center justify-center">
       <label htmlFor="email">
         E-mail
         <input
