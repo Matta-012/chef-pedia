@@ -13,6 +13,7 @@ module.exports = {
         'country-list': '#82889E',
         'login-wave': '#F8F8F8',
         'login-bg': '#FD8061',
+        'light-login-bg': '#FFE0D9'
       }
     },
   },
