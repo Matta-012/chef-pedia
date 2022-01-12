@@ -7,6 +7,7 @@ import chefIcon from '../images/chefIcon.svg';
 import leaveIcon from '../images/leaveIcon.svg';
 import avatar from '../images/avatar.png';
 import BackButton from '../components/BackButton';
+import GoBackTop from '../components/GoBackTop';
 import '../styles/Profile.css';
 
 function Perfil() {
@@ -29,16 +30,10 @@ function Perfil() {
 
   return (
     <div className="profile-wrapper">
-      <section className="flex items-center">
-        <BackButton
-          classes="p-4"
-        />
-        <span
-          className="ml-2 font-bold top-0"
-        >
-          Perfil
-        </span>
-      </section>
+      <GoBackTop
+        pageName="Perfil"
+        btnClasses="p-4"
+      />
       <section className="user-info flex flex-col items-center mb-10">
         <img 
           src={ profilePicture }
