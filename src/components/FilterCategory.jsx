@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function FilterCategory({ categoryName, filterCategory }) {
+function FilterCategory({ categoryName, filterCategory, classes }) {
   return (
-    <div>
+    <div className="mx-auto">
       <button
         type="button"
         data-testid={ `${categoryName}-category-filter` }
         onClick={ () => filterCategory(categoryName) }
+        className={classes}
       >
         {categoryName}
       </button>

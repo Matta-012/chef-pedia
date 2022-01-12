@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
 import { filterMealsByCategory, getSimpleListMeals } from '../helpers/fetchesFromAPI';
+import '../styles/recipe-card.css';
 
 function Meals() {
   const { meals,
@@ -50,38 +51,51 @@ function Meals() {
   return (
     <div>
       <Header />
-      <h1 data-testid="page-title">Comidas</h1>
-      <div>
-        {categoriesMeals.map((category) => (
-          <FilterCategory
-            key={ category.strCategory }
-            categoryName={ category.strCategory }
-            filterCategory={ filterCategory }
-          />
-        ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => getSimpleListMeals(setMeals) }
-        >
-          All
-        </button>
+      <h1
+        data-testid="page-title"
+        className="text-login-bg text-center text-xl font-semibold mt-4"
+      >
+        Comidas
+      </h1>
+      <div className="mb-20">
+        <div className="grid grid-cols-3 py-6 gap-y-2 md:w-3/5 lg:w-2/5 md:mx-auto mx-4">
+          <div className="mx-auto">
+            <button
+              type="button"
+              data-testid="All-category-filter"
+              onClick={ () => getSimpleListMeals(setMeals) }
+              className="border border-login-bg text-login-bg w-24 rounded-xl meal-category-btn hover:bg-login-bg hover:text-white transition duration-200"
+            >
+              All
+            </button>
+          </div>
+          {categoriesMeals.map((category) => (
+            <FilterCategory
+              key={ category.strCategory }
+              categoryName={ category.strCategory }
+              filterCategory={ filterCategory }
+              classes="border border-login-bg text-login-bg w-24 rounded-xl meal-category-btn hover:bg-login-bg hover:text-white transition duration-200"
+            />
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-5 px-4 mb-6 sm:grid-cols-3 lg:grid-cols-4">
+          {meals.map((meal, index) => (
+            <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+              <RecipeCard
+                id={ meal.idMeal }
+                image={ meal.strMealThumb }
+                title={ meal.strMeal }
+                index={ index }
+                cardType="recipe"
+              />
+            </Link>
+          ))}
+        </div>
+        {meals.length === 0 && !firstTime && global.alert(alertMessage)}
+        {currentFilter === 'radio'
+        && meals.length === 1
+        && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       </div>
-      {meals.map((meal, index) => (
-        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
-          <RecipeCard
-            id={ meal.idMeal }
-            image={ meal.strMealThumb }
-            title={ meal.strMeal }
-            index={ index }
-            cardType="recipe"
-          />
-        </Link>
-      ))}
-      {meals.length === 0 && !firstTime && global.alert(alertMessage)}
-      {currentFilter === 'radio'
-      && meals.length === 1
-      && <Redirect to={ `/comidas/${meals[0].idMeal}` } />}
       <Footer />
     </div>
   );
