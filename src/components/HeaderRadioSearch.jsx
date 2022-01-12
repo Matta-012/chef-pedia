@@ -53,9 +53,8 @@ function HeaderRadioSearch({ searchInputValue }) {
   };
 
   return (
-    <section>
-      <label htmlFor="ingredient">
-        Ingrediente
+    <section className="flex flex-col md:flex-row">
+      <label htmlFor="ingredient" className="mt-2 text-login-bg">
         <input
           data-testid="ingredient-search-radio"
           type="radio"
@@ -63,10 +62,11 @@ function HeaderRadioSearch({ searchInputValue }) {
           name="search-radio"
           value="ingredient"
           onChange={ handleRadioChange }
+          className="mr-1"
         />
+        Ingrediente
       </label>
-      <label htmlFor="name">
-        Nome
+      <label htmlFor="name" className="md:mt-2 md:ml-4 text-login-bg">
         <input
           data-testid="name-search-radio"
           type="radio"
@@ -74,25 +74,27 @@ function HeaderRadioSearch({ searchInputValue }) {
           name="search-radio"
           value="name"
           onChange={ handleRadioChange }
-
+          className="mr-1"
         />
+        Nome
       </label>
-      <label htmlFor="first-letter">
-        Primeira letra
+      <label htmlFor="first-letter" className="md:mt-2 md:ml-4 text-login-bg">
         <input
           data-testid="first-letter-search-radio"
           type="radio"
           id="first-letter"
           name="search-radio"
           value="first-letter"
-          onChange={ handleRadioChange }
-
+          onChange={ handleRadioChange }  
+          className="mr-1"
         />
+        Primeira letra
       </label>
       <button
         data-testid="exec-search-btn"
         type="button"
         onClick={ handleExecSearchButton }
+        className="mt-2 md:mt-2 md:ml-4 border border-login-bg text-login-bg rounded-lg hover:bg-login-bg hover:text-white transition duration-200 md:px-6"
       >
         Filtrar
       </button>
