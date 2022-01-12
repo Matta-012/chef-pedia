@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import { saveLocalStorage } from '../helpers/manageLocalStorage';
+import tryberchef from '../images/logo.svg';
+import waveBg from '../images/waveBg.svg';
 
 const SIX = 6;
 
@@ -34,7 +36,11 @@ export default function Login({ history }) {
   };
 
   return (
-    <div className="login-form bg-slate-600">
+    <div className="login-form bg-login-wave h-screen flex flex-col items-center">
+      <div className="bg-wave-pattern bg-cover w-full h-1/3" />
+      <div className="my-4 absolute">
+        <img src={ tryberchef } alt="Logotipo da chefpedia" className="logo"/>
+      </div>
       <LoginForm
         loginInfo={ loginInfo }
         handleChange={ handleLoginChange }

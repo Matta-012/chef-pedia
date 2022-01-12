@@ -8,6 +8,6 @@
   padding: 0;
 }
 
-/* @layer components {
-  
-} */
+body {
+  background-color: rgb(252, 252, 252);
+}
