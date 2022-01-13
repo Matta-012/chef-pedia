@@ -1,0 +1,5 @@
+@media screen and (min-width: 500px) {
+  .detail-img {
+    max-width: 500px;
+  }
+}

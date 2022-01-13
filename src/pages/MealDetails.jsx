@@ -6,6 +6,9 @@ import AppContext from '../context/AppContext';
 import FavoriteButton from '../components/FavoriteButton';
 import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import RecommendationCard from '../components/RecommendationCard';
+import shareIcon from '../images/shareIcon.svg';
+import '../styles/default-font.css';
+import '../styles/detail.css';
 
 function MealDetails() {
   const { pathname } = useLocation();
@@ -89,40 +92,64 @@ function MealDetails() {
   };
 
   return (
-    <main>
-      <img src={ strMealThumb } alt="comida" data-testid="recipe-photo" />
-      <h1 data-testid="recipe-title">{strMeal}</h1>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ () => { copyText(setCopiedLink); } }
-      >
-        Manda no zap
-
-      </button>
-      {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <FavoriteButton id={ id } food={ meal } foodType="meal" />
-      <span data-testid="recipe-category">{strCategory}</span>
-      <ul>
-        {getIngredientsList()}
-      </ul>
-      <p data-testid="instructions">{strInstructions}</p>
-      <iframe
-        data-testid="video"
-        src={ embedYoutube(strYoutube) }
-        allowFullScreen
-        title="How to make"
+    <main className="font-wrapper">
+      <img
+        src={ strMealThumb }
+        alt="comida"
+        data-testid="recipe-photo"
+        className="rounded-b-2xl detail-img mx-auto"
       />
-      <ul>{recommendationList()}</ul>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        style={ { position: 'fixed', bottom: '0px' } }
-        onClick={ () => { startRecipe(history, 'meal', id); } }
-        hidden={ isDone }
-      >
-        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
+      <div className="w-11/12 mx-auto my-3 md:w-3/4 lg:w-2/3">
+        <div className="w-full flex justify-between">
+          <h1
+            data-testid="recipe-title"
+            className="font-bold text-titles-text text-xl w-9/12"
+          >
+            {strMeal}
+          </h1>
+          <div className="w-1/5 flex justify-between">
+            <button
+              data-testid="share-btn"
+              type="button"
+              onClick={ () => { copyText(setCopiedLink); } }
+            >
+              <img src={shareIcon} alt="Ícone de compartilhar" />
+            </button>
+            <FavoriteButton id={ id } food={ meal } foodType="meal" />
+          </div>
+        </div>
+        <div className="mb-4">
+          <span
+            data-testid="recipe-category"
+          >
+            {strCategory}
+          </span>
+        </div>
+
+        <div>
+          {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
+          <ul>
+            {getIngredientsList()}
+          </ul>
+          <p data-testid="instructions">{strInstructions}</p>
+          <iframe
+            data-testid="video"
+            src={ embedYoutube(strYoutube) }
+            allowFullScreen
+            title="How to make"
+          />
+          <ul>{recommendationList()}</ul>
+          <button
+            data-testid="start-recipe-btn"
+            type="button"
+            style={ { position: 'fixed', bottom: '0px' } }
+            onClick={ () => { startRecipe(history, 'meal', id); } }
+            hidden={ isDone }
+          >
+            {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        </div>
+      </div>
     </main>
   );
 }
