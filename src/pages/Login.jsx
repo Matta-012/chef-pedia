@@ -38,8 +38,8 @@ export default function Login({ history }) {
   return (
     <div className="login-form bg-login-wave h-screen flex flex-col items-center">
       <div className="bg-wave-pattern bg-cover w-full h-1/3" />
-      <div className="my-4 absolute">
-        <img src={ tryberchef } alt="Logotipo da chefpedia" className="logo"/>
+      <div className="my-4 absolute mt-10">
+        <img src={ tryberchef } alt="Logotipo da chefpedia" />
       </div>
       <LoginForm
         loginInfo={ loginInfo }
