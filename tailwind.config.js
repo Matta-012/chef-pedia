@@ -16,7 +16,7 @@ module.exports = {
         'light-login-bg': '#FFE0D9',
       },
       backgroundImage: {
-        'wave-pattern': "url('/home/matta/Documentos/Projetos/Chef-Pedia/src/images/waveBg.svg')",
+        'wave-pattern': "url('images/waveBg.svg')",
       }
     },
   },

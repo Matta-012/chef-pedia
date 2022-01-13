@@ -77,7 +77,7 @@ function Perfil() {
           type="button"
           value="/"
           data-testid="profile-logout-btn"
-          onClick={ ({ target }) => handleLogoutBtn(target.value) }
+          onClick={ () => handleLogoutBtn('/') }
           className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
           <img
