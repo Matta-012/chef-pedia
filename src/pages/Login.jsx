@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm';
 import { saveLocalStorage } from '../helpers/manageLocalStorage';
 import tryberchef from '../images/logo.svg';
-import waveBg from '../images/waveBg.svg';
 
 const SIX = 6;
 
