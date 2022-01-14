@@ -48,7 +48,7 @@ function Perfil() {
           value="/receitas-feitas"
           data-testid="profile-done-btn"
           onClick={ ({ target }) => handleRoute(target.value) }
-          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative  max-w-xl"
+          className="btn-profile"
         >
           <img
             src={ chefIcon } alt="chef-icon"
@@ -63,7 +63,7 @@ function Perfil() {
           value="/receitas-favoritas"
           data-testid="profile-favorite-btn"
           onClick={ ({ target }) => handleRoute(target.value) }
-          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative  max-w-xl"
+          className="btn-profile"
         >
           <img 
             src={ favoriteEmptyIcon } alt="favorite empty heart icon"
@@ -78,7 +78,7 @@ function Perfil() {
           value="/"
           data-testid="profile-logout-btn"
           onClick={ ({ target }) => handleLogoutBtn(target.value) }
-          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative  max-w-xl"
+          className="btn-profile"
         >
           <img
             src={ leaveIcon } alt="chef-icon"
