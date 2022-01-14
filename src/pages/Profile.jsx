@@ -1,11 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
+import favoriteEmptyIcon from '../images/favoriteEmptyIcon.svg';
+import chefIcon from '../images/chefIcon.svg';
+import leaveIcon from '../images/leaveIcon.svg';
+import avatar from '../images/avatar.png';
+import BackButton from '../components/BackButton';
+import GoBackTop from '../components/GoBackTop';
+import '../styles/Profile.css';
 
 function Perfil() {
   const [profileEmail, setProfileEmail] = useState('');
+  const [profilePicture, setProfilePicture] = useState(avatar);
   const { handleRoute } = useContext(AppContext);
 
   useEffect(() => {
@@ -22,34 +29,64 @@ function Perfil() {
   };
 
   return (
-    <div>
-      <Header />
-      <h1 data-testid="page-title">Perfil</h1>
-      <section>
-        <p data-testid="profile-email">{profileEmail}</p>
+    <div className="profile-wrapper">
+      <GoBackTop
+        pageName="Perfil"
+        btnClasses="p-4"
+      />
+      <section className="user-info flex flex-col items-center mb-10">
+        <img 
+          src={ profilePicture }
+          alt="Profile picture"
+          className="w-28 h-28 rounded-full mt-4"
+        />
+        <p className="text-gray-500 pt-4">{profileEmail}</p>
+      </section>
+      <section className=" flex flex-col items-center">
         <button
           type="button"
           value="/receitas-feitas"
           data-testid="profile-done-btn"
           onClick={ ({ target }) => handleRoute(target.value) }
+          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
-          Receitas Feitas
+          <img
+            src={ chefIcon } alt="chef-icon"
+            className="w-8 h-8 absolute left-2 top-1"
+          />
+          <span className="ml-4">
+            Receitas Feitas
+          </span>
         </button>
         <button
           type="button"
           value="/receitas-favoritas"
           data-testid="profile-favorite-btn"
           onClick={ ({ target }) => handleRoute(target.value) }
+          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
-          Receitas Favoritas
+          <img 
+            src={ favoriteEmptyIcon } alt="favorite empty heart icon"
+            className="w-7 h-7 absolute left-2 top-2"
+          />
+          <span className="ml-4">
+            Receitas Favoritas
+          </span>
         </button>
         <button
           type="button"
           value="/"
           data-testid="profile-logout-btn"
           onClick={ ({ target }) => handleLogoutBtn(target.value) }
+          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
-          Sair
+          <img
+            src={ leaveIcon } alt="chef-icon"
+            className="w-8 h-8 absolute left-3 top-2"
+          />
+          <span className="ml-4">
+            Sair da conta
+          </span>
         </button>
       </section>
       <Footer />

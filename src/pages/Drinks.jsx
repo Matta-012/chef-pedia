@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
 import { filterDrinksByCategory, getSimpleListDrinks } from '../helpers/fetchesFromAPI';
+import '../styles/recipe-card.css';
 
 function Drinks() {
   const { drinks,
@@ -51,38 +52,51 @@ function Drinks() {
   return (
     <div>
       <Header />
-      <h1 data-testid="page-title">Bebidas</h1>
-      <div>
-        {categoriesDrinks.map((category) => (
-          <FilterCategory
-            key={ category.strCategory }
-            categoryName={ category.strCategory }
-            filterCategory={ filterCategory }
-          />
-        ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => getSimpleListDrinks(setDrinks) }
-        >
-          All
-        </button>
+      <h1
+        data-testid="page-title"
+        className="text-login-bg text-center text-xl font-semibold mt-4"
+      >
+        Bebidas
+      </h1>
+      <div className="mb-20">
+        <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3 mx-4 md:mx-auto md:w-3/4 lg:w-3/5">
+          <div className="mx-auto">
+            <button
+              type="button"
+              data-testid="All-category-filter"
+              onClick={ () => getSimpleListDrinks(setDrinks) }
+              className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+            >
+              All
+            </button>
+          </div>
+          {categoriesDrinks.map((category) => (
+            <FilterCategory
+              key={ category.strCategory }
+              categoryName={ category.strCategory }
+              filterCategory={ filterCategory }
+              classes="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+            />
+          ))}
+        </div>
+        <div className="grid grid-cols-2 gap-5 px-4 mb-6 sm:grid-cols-3 lg:grid-cols-4">
+          {drinks.map((drink, index) => (
+            <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
+              <RecipeCard
+                id={ drink.idDrink }
+                image={ drink.strDrinkThumb }
+                title={ drink.strDrink }
+                index={ index }
+                cardType="recipe"
+              />
+            </Link>
+          ))}
+        </div>
+        {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
+        {currentFilter === 'radio'
+        && drinks.length === 1
+        && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       </div>
-      {drinks.map((drink, index) => (
-        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
-          <RecipeCard
-            id={ drink.idDrink }
-            image={ drink.strDrinkThumb }
-            title={ drink.strDrink }
-            index={ index }
-            cardType="recipe"
-          />
-        </Link>
-      ))}
-      {drinks.length === 0 && !firstTime && global.alert(alertMessage)}
-      {currentFilter === 'radio'
-      && drinks.length === 1
-      && <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />}
       <Footer />
     </div>
   );

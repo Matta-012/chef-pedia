@@ -9,3 +9,7 @@ footer {
   justify-content: space-around;
   width: 100%;
 }
+
+#icon-color {
+  fill: #FD8061;
+}
