@@ -17,7 +17,21 @@ module.exports = {
       },
       backgroundImage: {
         'wave-pattern': "url('images/waveBg.svg')",
-      }
+      },
+      screens: {
+        'phone-p': '320px',
+        'phone-m': '375px',
+        'phone-g': '425px',
+        'tab-p': '640px',
+        'tab': '768px',
+        'laptop': '1024px',
+        'laptop-g': '1440px',
+      },
+      maxWidth: {
+        'max-p': '320px',
+        'max-m': '375px',
+        'max-g': '425px',
+      },
     },
   },
   plugins: [],

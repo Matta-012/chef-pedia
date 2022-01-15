@@ -47,7 +47,7 @@ function Perfil() {
           type="button"
           value="/receitas-feitas"
           data-testid="profile-done-btn"
-          onClick={ ({ target }) => handleRoute(target.value) }
+          onClick={ () => handleRoute('/receitas-feitas') }
           className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
           <img
@@ -62,7 +62,7 @@ function Perfil() {
           type="button"
           value="/receitas-favoritas"
           data-testid="profile-favorite-btn"
-          onClick={ ({ target }) => handleRoute(target.value) }
+          onClick={ () => handleRoute('/receitas-favoritas') }
           className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
           <img 

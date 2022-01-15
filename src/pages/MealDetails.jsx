@@ -60,6 +60,7 @@ function MealDetails() {
     const ingredients = [];
     const MAX_INGREDIENTS = 20;
     const ONE = 1;
+
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (meal[`strIngredient${i}`]) {
         ingredients.push(
@@ -67,8 +68,13 @@ function MealDetails() {
             key={ i }
             data-testid={ `${i - ONE}-ingredient-name-and-measure` }
           >
-            {meal[`strIngredient${i}`]}
-            {meal[`strMeasure${i}`]}
+            <span className="font-bold text-titles-text">
+              {meal[`strIngredient${i}`]}
+            </span>
+            {' - '}
+            <span className="font-bold text-titles-text">
+              {meal[`strMeasure${i}`]}
+            </span>
           </li>,
         );
       }
@@ -97,9 +103,16 @@ function MealDetails() {
         src={ strMealThumb }
         alt="comida"
         data-testid="recipe-photo"
-        className="rounded-b-2xl detail-img mx-auto"
+        className="rounded-b-2xl phone-g:max-w-max-g mx-auto"
       />
-      <div className="w-11/12 mx-auto my-3 md:w-3/4 lg:w-2/3">
+      <div className="flex justify-center mt-4 font-bold">
+        {copiedLink && <span
+          data-testid="copied-link"
+        >
+          Link copiado!
+        </span>}
+      </div>
+      <div className="w-11/12 mx-auto my-3 md:w-3/4 lg:max-w-[1024px]">
         <div className="w-full flex justify-between">
           <h1
             data-testid="recipe-title"
@@ -127,28 +140,40 @@ function MealDetails() {
         </div>
 
         <div>
-          {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-          <ul>
+          <ul className="text-center mb-4">
             {getIngredientsList()}
           </ul>
-          <p data-testid="instructions">{strInstructions}</p>
+          <p
+            data-testid="instructions"
+            className="text-justify mx-2 mb-8 border border-gray-200 p-3 rounded-lg"
+          >
+            {strInstructions}
+          </p>
           <iframe
             data-testid="video"
             src={ embedYoutube(strYoutube) }
             allowFullScreen
             title="How to make"
+            className="mx-auto my-6 p-2 border border-gray-200 rounded-md w-11/12 phone-p:h-[155px] phone-m:h-[180px] phone-g:h-[210px] tab-p:h-[260px] tab:h-[300px] laptop:h-[400px] laptop-g:h-[450px]"
           />
-          <ul>{recommendationList()}</ul>
-          <button
-            data-testid="start-recipe-btn"
-            type="button"
-            style={ { position: 'fixed', bottom: '0px' } }
-            onClick={ () => { startRecipe(history, 'meal', id); } }
-            hidden={ isDone }
-          >
-            {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-          </button>
+          <h2 className="flex justify-center text-2xl text-titles-text mb-6">
+            Recomendações
+          </h2>
+          <ul className="grid grid-cols-2 gap-4 mb-20">
+            {recommendationList()}
+          </ul>
         </div>
+      </div>
+      <div className="fixed bottom-3 w-full px-2 flex justify-center">
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => { startRecipe(history, 'meal', id); } }
+          hidden={ isDone }
+          className="border border-login-bg text-login-bg rounded-md hover:bg-login-bg hover:text-white transition duration-200 bg-white py-2 w-full tab:w-[745px]"
+        >
+          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+        </button>
       </div>
     </main>
   );

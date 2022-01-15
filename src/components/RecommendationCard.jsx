@@ -8,13 +8,22 @@ function RecommendationCard({ recommendation, i, foodType }) {
       <li
         data-testid={ `${i}-recomendation-card` }
         hidden={ !(i === 0 || i === 1) }
+        className="recipe-card border border-gray-300 rounded-xl transition duration-150 card-shadow"
       >
         <Link to={ `/bebidas/${recommendation.idDrink}` }>
-          <img
-            src={ recommendation.strDrinkThumb }
-            alt="recomendation"
-          />
-          <h3 data-testid={ `${i}-recomendation-title` }>{recommendation.strDrink}</h3>
+          <div>
+            <img
+              src={ recommendation.strDrinkThumb }
+              alt="recomendation"
+              className="login-bg rounded-t-xl w-full rounded-none"
+            />
+          </div>
+          <h3
+            data-testid={ `${i}-recomendation-title` }
+            className="py-2 text-xl text-center text-white font-semibold bg-login-bg rounded-b-xl lg:py-4 lg:text-2xl px-2"
+          >
+            {recommendation.strDrink}
+          </h3>
         </Link>
       </li>
     );
