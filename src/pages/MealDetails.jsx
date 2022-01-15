@@ -110,21 +110,33 @@ function MealDetails() {
         data-testid="recipe-photo"
         className="rounded-b-2xl phone-g:max-w-max-g mx-auto"
       />
-      <div className="flex justify-center mt-4 font-bold">
-        {copiedLink && <span
-          data-testid="copied-link"
-        >
-          Link copiado!
-        </span>}
-      </div>
+
       <div className="w-11/12 mx-auto my-3 md:w-3/4 lg:max-w-[1024px]">
-        <div className="w-full flex justify-between">
+        <div className="w-full flex flex-col items-center mb-8">
           <h1
             data-testid="recipe-title"
-            className="font-bold text-titles-text text-xl w-9/12"
+            className="font-bold text-titles-text text-xl w-9/12 text-center"
           >
             {strMeal}
           </h1>
+
+          <div className="mb-4">
+            <span
+              data-testid="recipe-category"
+            >
+              {strCategory}
+            </span>
+          </div>
+
+          <div className="flex justify-center font-bold">
+            {copiedLink && <span
+              data-testid="copied-link"
+              className="mb-4"
+            >
+              Link copiado!
+            </span>}
+          </div>
+
           <div className="w-1/5 flex justify-between">
             <button
               data-testid="share-btn"
@@ -135,13 +147,6 @@ function MealDetails() {
             </button>
             <FavoriteButton id={ id } food={ meal } foodType="meal" />
           </div>
-        </div>
-        <div className="mb-4">
-          <span
-            data-testid="recipe-category"
-          >
-            {strCategory}
-          </span>
         </div>
 
         <div>
@@ -170,7 +175,7 @@ function MealDetails() {
         </div>
       </div>
 
-      <div className="fixed bottom-3 w-full px-2 flex justify-center">
+      <div className="fixed bottom-3 left-0 w-full px-2 flex justify-center">
         <button
           data-testid="start-recipe-btn"
           type="button"
