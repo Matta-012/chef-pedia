@@ -6,7 +6,6 @@ import favoriteEmptyIcon from '../images/favoriteEmptyIcon.svg';
 import chefIcon from '../images/chefIcon.svg';
 import leaveIcon from '../images/leaveIcon.svg';
 import avatar from '../images/avatar.png';
-import BackButton from '../components/BackButton';
 import GoBackTop from '../components/GoBackTop';
 import '../styles/Profile.css';
 
@@ -47,8 +46,8 @@ function Perfil() {
           type="button"
           value="/receitas-feitas"
           data-testid="profile-done-btn"
-          onClick={ ({ target }) => handleRoute(target.value) }
-          className="btn-profile"
+          onClick={ () => handleRoute('/receitas-feitas') }
+          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
           <img
             src={ chefIcon } alt="chef-icon"
@@ -62,8 +61,8 @@ function Perfil() {
           type="button"
           value="/receitas-favoritas"
           data-testid="profile-favorite-btn"
-          onClick={ ({ target }) => handleRoute(target.value) }
-          className="btn-profile"
+          onClick={ () => handleRoute('/receitas-favoritas') }
+          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
           <img 
             src={ favoriteEmptyIcon } alt="favorite empty heart icon"
@@ -77,8 +76,8 @@ function Perfil() {
           type="button"
           value="/"
           data-testid="profile-logout-btn"
-          onClick={ ({ target }) => handleLogoutBtn(target.value) }
-          className="btn-profile"
+          onClick={ () => handleLogoutBtn('/') }
+          className="w-7/12 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold relative"
         >
           <img
             src={ leaveIcon } alt="chef-icon"

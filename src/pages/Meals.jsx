@@ -7,6 +7,7 @@ import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
 import { filterMealsByCategory, getSimpleListMeals } from '../helpers/fetchesFromAPI';
 import '../styles/recipe-card.css';
+import '../styles/default-font.css';
 
 function Meals() {
   const { meals,
@@ -49,7 +50,7 @@ function Meals() {
   };
 
   return (
-    <div>
+    <div className="font-wrapper">
       <Header />
       <h1
         data-testid="page-title"

@@ -3,9 +3,13 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { fetchDrinkById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
 import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
-import FavoriteButton from '../components/FavoriteButton';
 import AppContext from '../context/AppContext';
+import FavoriteButton from '../components/FavoriteButton';
 import RecommendationCard from '../components/RecommendationCard';
+import shareIcon from '../images/shareIcon.svg';
+
+import GoBackTop from '../components/GoBackTop';
+import '../styles/default-font.css';
 
 function DrinkDetails() {
   const { pathname } = useLocation();
@@ -64,8 +68,13 @@ function DrinkDetails() {
             key={ i }
             data-testid={ `${i - ONE}-ingredient-name-and-measure` }
           >
-            {drink[`strIngredient${i}`]}
-            {drink[`strMeasure${i}`]}
+            <span className="font-bold text-titles-text">
+              {drink[`strIngredient${i}`]}
+            </span>
+            {' - '}
+            <span className="font-bold text-titles-text">
+              { drink[`strMeasure${i}`]}
+            </span>
           </li>,
         );
       }
@@ -89,40 +98,89 @@ function DrinkDetails() {
   };
 
   return (
-    <main>
-      <img src={ strDrinkThumb } alt="bebida" data-testid="recipe-photo" />
-      <h1 data-testid="recipe-title">{strDrink}</h1>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ () => { copyText(setCopiedLink); } }
-      >
-        Manda no zap
-
-      </button>
-      {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <FavoriteButton id={ id } food={ drink } foodType="drink" />
-      <span data-testid="recipe-category">{strAlcoholic}</span>
-      <ul>
-        {getIngredientsList()}
-      </ul>
-      <p data-testid="instructions">{strInstructions}</p>
-      <iframe
-        data-testid="video"
-        src={ embedYoutube(strYoutube) }
-        allowFullScreen
-        title="How to make"
+    <main className="font-wrapper">
+      <GoBackTop
+        pageName={strDrink}
+        btnClasses="p-4"
       />
-      <ul>{recommendationList()}</ul>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        style={ { position: 'fixed', bottom: '0px' } }
-        onClick={ () => { startRecipe(history, 'drink', id); } }
-        hidden={ isDone }
-      >
-        {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
+      <img
+        src={ strDrinkThumb }
+        alt="bebida"
+        data-testid="recipe-photo"
+        className="rounded-b-2xl phone-g:max-w-max-g mx-auto"
+      />
+      <div className="flex justify-center mt-4 font-bold">
+        {copiedLink && <span
+          data-testid="copied-link"
+        >
+          Link copiado!
+        </span>}
+      </div>
+      <div className="w-11/12 mx-auto my-3 md:w-3/4 lg:max-w-[1024px]">
+        <div className="w-full flex justify-between">
+          <h1
+            data-testid="recipe-title"
+            className="font-bold text-titles-text text-xl w-9/12"
+          >
+            {strDrink}
+          </h1>
+          <div className="w-1/5 flex justify-between">
+            <button
+              data-testid="share-btn"
+              type="button"
+              onClick={ () => { copyText(setCopiedLink); } }
+            >
+              <img src={shareIcon} alt="Ícone de compartilhar" />
+            </button>
+            <FavoriteButton id={ id } food={ drink } foodType="drink" />
+          </div>
+        </div>
+        <div className="mb-4">
+          <span
+            data-testid="recipe-category"
+          >
+            {strAlcoholic}
+          </span>
+        </div>
+
+        <div>
+          <ul className="text-center mb-4">
+            {getIngredientsList()}
+          </ul>
+          <p
+            data-testid="instructions"
+            className="text-center mx-2 mb-8 border border-gray-200 p-3 rounded-lg"
+          >
+            {strInstructions}
+          </p>
+          <iframe
+            data-testid="video"
+            src={ embedYoutube(strYoutube) }
+            allowFullScreen
+            title="How to make"
+            className="mx-auto my-6 p-2 border border-gray-200 rounded-md w-11/12 phone-p:h-[155px] phone-m:h-[180px] phone-g:h-[210px] tab-p:h-[260px] tab:h-[300px] laptop:h-[400px] laptop-g:h-[450px]"
+          />
+          <h2 className="flex justify-center text-2xl text-titles-text mb-6">
+            Recomendações
+          </h2>
+          <ul className="grid grid-cols-2 gap-4 mb-20">
+            {recommendationList()}
+          </ul>
+        </div>
+      </div>
+
+      <div className="fixed bottom-5 w-full px-2 flex justify-center">
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          onClick={ () => { startRecipe(history, 'drink', id); } }
+          hidden={ isDone }
+          className="border border-login-bg text-login-bg rounded-md hover:bg-login-bg hover:text-white transition duration-200 bg-white py-2 w-full tab:w-[745px]"
+        >
+          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+        </button>
+      </div>
+      
     </main>
   );
 }

@@ -43,7 +43,7 @@ function LoginForm({
         disabled={isSubmitBtnDisabled}
         type="submit"
         data-testid="login-submit-btn"
-        className="w-40 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold self-center card-shadow disabled:opacity-40 active:translate-y-1 transition duration-100"
+        className="salmon-btn shadow-lg shadow-btn-shadow hover:shadow-menu-itens "
       >
         Entrar
       </button>

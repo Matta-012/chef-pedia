@@ -4,9 +4,7 @@ import BackButton from '../components/BackButton';
 function GoBackTop({ pageName, btnClasses }) {
   return ( 
     <section className="flex items-center">
-      <BackButton
-        classes={ btnClasses }
-      />
+      <BackButton classes={ btnClasses } />
       <span
         className="ml-2 font-bold top-0"
       >

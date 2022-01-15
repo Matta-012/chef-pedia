@@ -7,6 +7,7 @@ import RecipeCard from '../components/RecipeCard';
 import FilterCategory from '../components/FilterCategory';
 import { filterDrinksByCategory, getSimpleListDrinks } from '../helpers/fetchesFromAPI';
 import '../styles/recipe-card.css';
+import '../styles/default-font.css';
 
 function Drinks() {
   const { drinks,
@@ -50,7 +51,7 @@ function Drinks() {
   };
 
   return (
-    <div>
+    <div className="font-wrapper">
       <Header />
       <h1
         data-testid="page-title"

@@ -12,6 +12,22 @@ body {
   background-color: rgb(252, 252, 252);
 }
 
+@layer components {
+  .salmon-btn {
+    @apply w-40 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold self-center disabled:opacity-40 active:translate-y-1 transition duration-100;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+  .font-palanquin {
+    font-family: 'Palanquin', sans-serif;
+  }
+
+  .custom-h-screen {
+    height: 80vh;
+  }
+}
+
 @media (min-width: 1024px) {
   body {
     display: flex;
