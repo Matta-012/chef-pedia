@@ -25,7 +25,6 @@ function Header() {
 
   return (
     <header>
-      {/* <h1 data-testid="page-title" className="text-verdeClaro">Header</h1> */}
       <div className="mx-auto mt-4 w-11/12 flex justify-between hover:cursor-pointer">
         {shouldDisplaySearchIcon && (
           <div>
