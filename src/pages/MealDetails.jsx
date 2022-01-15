@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
+import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import AppContext from '../context/AppContext';
 import FavoriteButton from '../components/FavoriteButton';
-import { embedYoutube, copyText, startRecipe } from '../helpers/foodDetailsHelpers';
 import RecommendationCard from '../components/RecommendationCard';
 import shareIcon from '../images/shareIcon.svg';
+
+import GoBackTop from '../components/GoBackTop';
 import '../styles/default-font.css';
-import '../styles/detail.css';
 
 function MealDetails() {
   const { pathname } = useLocation();
@@ -99,6 +100,10 @@ function MealDetails() {
 
   return (
     <main className="font-wrapper">
+      <GoBackTop
+        pageName={strMeal}
+        btnClasses="p-4"
+      />
       <img
         src={ strMealThumb }
         alt="comida"
@@ -145,7 +150,7 @@ function MealDetails() {
           </ul>
           <p
             data-testid="instructions"
-            className="text-justify mx-2 mb-8 border border-gray-200 p-3 rounded-lg"
+            className="text-center mx-2 mb-8 border border-gray-200 p-3 rounded-lg"
           >
             {strInstructions}
           </p>
@@ -164,6 +169,7 @@ function MealDetails() {
           </ul>
         </div>
       </div>
+
       <div className="fixed bottom-3 w-full px-2 flex justify-center">
         <button
           data-testid="start-recipe-btn"

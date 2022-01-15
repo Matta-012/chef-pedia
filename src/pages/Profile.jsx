@@ -6,7 +6,6 @@ import favoriteEmptyIcon from '../images/favoriteEmptyIcon.svg';
 import chefIcon from '../images/chefIcon.svg';
 import leaveIcon from '../images/leaveIcon.svg';
 import avatar from '../images/avatar.png';
-import BackButton from '../components/BackButton';
 import GoBackTop from '../components/GoBackTop';
 import '../styles/Profile.css';
 
