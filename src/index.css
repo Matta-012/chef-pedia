@@ -35,6 +35,10 @@ body {
     background-color: rgb(248, 248, 248);
   }
 
+  footer {
+    max-width: 1024px;
+  }
+
   #root {
     width: 1024px;
   }
