@@ -44,38 +44,48 @@ export default function ExploreLocal() {
   };
 
   return (
-    <div>
+    <div className="h-screen">
       <Header />
-      <h1 data-testid="page-title">Explorar Origem</h1>
-      <select
-        name="area-dropdown"
-        id="area-dropdown"
-        data-testid="explore-by-area-dropdown"
-        onChange={ (e) => handleDropdownChange(e) }
+      <h1
+        data-testid="page-title"
+        className="text-login-bg text-center text-xl font-semibold mt-4"
       >
-        <option data-testid="All-option" value="All">All</option>
-        {mealsArea.map(({ strArea }, index) => (
-          <option
-            key={ `${strArea} - ${index}` }
-            data-testid={ `${strArea}-option` }
-            value={ strArea }
-          >
-            {strArea}
-          </option>
-        ))}
-      </select>
+        Explorar Origem
+      </h1>
+      <section className="flex justify-center">
+        <select
+          name="area-dropdown"
+          id="area-dropdown"
+          data-testid="explore-by-area-dropdown"
+          onChange={ (e) => handleDropdownChange(e) }
+          className="text-login-bg text-center text-xl my-4 bg-white w-80 sm:mx-3 sm:w-full h-9 border-2 rounded focus:outline-none focus:ring focus:ring-light-login-bg"
+        >
+          <option data-testid="All-option" value="All">All</option>
+          {mealsArea.map(({ strArea }, index) => (
+            <option
+              key={ `${strArea} - ${index}` }
+              data-testid={ `${strArea}-option` }
+              value={ strArea }
+            >
+              {strArea}
+            </option>
+          ))}
+        </select>
+      </section>
 
-      {meals.map((meal, index) => (
-        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
-          <RecipeCard
-            id={ meal.idMeal }
-            image={ meal.strMealThumb }
-            title={ meal.strMeal }
-            index={ index }
-            cardType="recipe"
-          />
-        </Link>
-      ))}
+      <section className="grid grid-cols-2 gap-5 px-4 mb-6 sm:grid-cols-3 lg:grid-cols-4">
+        {meals.map((meal, index) => (
+          <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+            <RecipeCard
+              id={ meal.idMeal }
+              image={ meal.strMealThumb }
+              title={ meal.strMeal }
+              index={ index }
+              cardType="recipe"
+            />
+          </Link>
+        ))}
+      </section>
       <Footer />
     </div>
   );
