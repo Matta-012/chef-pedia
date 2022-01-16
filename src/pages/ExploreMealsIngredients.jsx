@@ -4,6 +4,7 @@ import AppContext from '../context/AppContext';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
+import GoBackTop from '../components/GoBackTop';
 
 export default function ExploreMealsIngredients() {
   const location = useLocation();
@@ -27,9 +28,18 @@ export default function ExploreMealsIngredients() {
 
   return (
     <div>
-      <Header />
-      <h1 data-testid="page-title">Explorar Ingredientes</h1>
-      <section>
+      <section className="flex justify-between mb-3">
+        <GoBackTop
+          pageName="Explorar Ingredientes"
+          btnClasses="p-4"
+          dataTest="page-title"
+        />
+        <div className="mr-5 md:mr-0">
+          <Header />
+        </div>
+      </section>
+
+      <section className="grid grid-cols-2 gap-5 px-4 mb-6 sm:grid-cols-3 lg:grid-cols-4">
         {ingredientsList.length > 0
           && ingredientsList.map(({ ingredient, ingredientImg }, index) => (
             <div
