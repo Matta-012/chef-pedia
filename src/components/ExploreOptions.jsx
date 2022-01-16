@@ -6,7 +6,7 @@ import { fetchRandomMealOrDrink } from '../helpers/fetchesFromAPI';
 const RANDOM_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const RANDOM_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
-function ExploreOptions() {
+function ExploreOptions({ ingredientsBtnClasses, surpriseMeClasses, areaBtnClasses }) {
   const [shouldDisplayAreaBtn, setShouldDisplayAreaBtn] = useState('');
   const [routePath, setRoutePath] = useState('');
   const { handleRoute } = useContext(AppContext);
@@ -33,12 +33,12 @@ function ExploreOptions() {
   };
 
   return (
-    <section>
+    <section className="h-5/6 flex flex-col items-center">
       <button
         type="button"
-        value={ `/explorar/${routePath}/ingredientes` }
         data-testid="explore-by-ingredient"
-        onClick={ ({ target }) => handleRoute(target.value) }
+        onClick={ () => handleRoute(`/explorar/${routePath}/ingredientes`) }
+        className={ ingredientsBtnClasses }
       >
         Por Ingredientes
       </button>
@@ -46,9 +46,9 @@ function ExploreOptions() {
       {shouldDisplayAreaBtn && (
         <button
           type="button"
-          value={ `/explorar/${routePath}/area` }
           data-testid="explore-by-area"
-          onClick={ ({ target }) => handleRoute(target.value) }
+          onClick={ () => handleRoute(`/explorar/${routePath}/area`) }
+          className={ areaBtnClasses }
         >
           Por Local de Origem
         </button>
@@ -56,9 +56,9 @@ function ExploreOptions() {
 
       <button
         type="button"
-        value={ `${routePath}` }
         data-testid="explore-surprise"
         onClick={ handleSurpriseMeBtn }
+        className={ surpriseMeClasses }
       >
         Me Surpreenda!
       </button>
