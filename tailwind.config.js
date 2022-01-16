@@ -19,6 +19,8 @@ module.exports = {
       },
       backgroundImage: {
         'wave-pattern': "url('images/waveBg.svg')",
+        'meals-bg': "url('images/mealsBg.svg')",
+        'drinks-bg': "url('images/drinksBg.svg')",
       },
       screens: {
         'phone-p': '320px',
