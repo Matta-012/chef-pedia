@@ -12,6 +12,25 @@ body {
   background-color: rgb(252, 252, 252);
 }
 
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(253, 128, 97);
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255, 102, 64);
+}
+
 @layer components {
   .salmon-btn {
     @apply w-40 h-11 my-1 text-base bg-login-bg text-recipe-name rounded-2xl font-bold self-center disabled:opacity-40 active:translate-y-1 transition duration-100;
