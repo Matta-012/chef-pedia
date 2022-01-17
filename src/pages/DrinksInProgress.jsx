@@ -63,8 +63,9 @@ function DrinkInProgress() {
     navigator.clipboard.writeText(textToCopy);
     setCopiedLink(true);
     const INTERVAL_TIME = 3000;
-    setTimeout(() => {
+    const timeOutId = setTimeout(() => {
       setCopiedLink(false);
+      clearTimeout(timeOutId);
     }, INTERVAL_TIME);
   };
 

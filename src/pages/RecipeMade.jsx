@@ -4,6 +4,7 @@ import GoBackTop from '../components/GoBackTop.jsx';
 import DoneRecipeCard from '../components/DoneRecipeCard';
 import NoneRecipesMade from '../components/NoneRecipesMade';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
+import '../styles/default-font.css';
 
 export default function RecipeMade() {
   const doneRecipes = getLocalStorage('doneRecipes');
@@ -23,7 +24,7 @@ export default function RecipeMade() {
   }
 
   return (
-    <div>
+    <div className="font-wrapper">
       <section className="flex justify-between">
         <GoBackTop
           pageName="Receitas Feitas"
@@ -35,8 +36,8 @@ export default function RecipeMade() {
         </div>
       </section>
 
-      <div>
-        <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3 mx-4 md:mx-auto md:w-3/4 lg:w-3/5">
+      <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3 mx-4 md:mx-auto md:w-3/4 lg:w-3/5">
+        <div className="mx-auto">
           <button
             type="button"
             data-testid="filter-by-all-btn"
@@ -45,7 +46,9 @@ export default function RecipeMade() {
           >
             All
           </button>
+        </div>
 
+        <div className="mx-auto">
           <button
             type="button"
             data-testid="filter-by-food-btn"
@@ -54,7 +57,9 @@ export default function RecipeMade() {
           >
             Food
           </button>
+        </div>
 
+        <div className="mx-auto">
           <button
             type="button"
             data-testid="filter-by-drink-btn"

@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { copyRecipeDoneText } from '../helpers/foodDetailsHelpers';
-import share from '../images/shareIcon.svg';
+import share from '../images/whiteShareIcon.svg';
+import '../styles/recipe-card.css';
 
 function DoneRecipeCard({
   index,
@@ -19,41 +20,67 @@ function DoneRecipeCard({
   const [isCopied, setIsCopied] = useState(false);
 
   return (
-    <div>
+    <div className="recipe-card bg-login-bg text-white text-center rounded-xl border border-gray-300 pb-3">
       <Link to={ `/${type}s/${id}` }>
         <img
           src={ image }
           alt="imagem"
           data-testid={ `${index}-horizontal-image` }
           style={ { width: '250px' } }
+          className="rounded-t-xl"
         />
       </Link>
       {type === 'comida'
         ? (
-          <div data-testid={ `${index}-horizontal-top-text` }>
+          <div data-testid={ `${index}-horizontal-top-text` } className="mt-1">
             <span>{area}</span>
             {' - '}
             <span>{category}</span>
           </div>
         ) : (
-          <div data-testid={ `${index}-horizontal-top-text` }>{alcoholicOrNot}</div>
+          <div
+            data-testid={ `${index}-horizontal-top-text` }
+            className="mt-1"
+          >
+            {alcoholicOrNot}
+          </div>
         )}
       <Link to={ `/${type}s/${id}` }>
-        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
+        <p
+          data-testid={ `${index}-horizontal-name` }
+          className="font-bold text-xl"
+        >
+          {name}
+        </p>
       </Link>
       <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+      <div className="flex justify-center font-bold">
+        {isCopied && <span
+          data-testid="copied-link"
+        >
+          Link copiado!
+        </span>}
+      </div>
       <button
         type="button"
         src={ share }
         data-testid={ `${index}-horizontal-share-btn` }
         onClick={ () => copyRecipeDoneText(setIsCopied, type, id) }
+        className="mt-2"
       >
-        <img src={ share } alt="Icone de compartilhar" />
+        <img src={ share } alt="Ícone de compartilhar" />
       </button>
-      {isCopied ? <span>Link copiado!</span> : ''}
-      {tags.map((tag) => (
-        <p key={ index } data-testid={ `${index}-${tag}-horizontal-tag` }>{tag}</p>
-      ))}
+      {tags
+        ? (
+          tags.map((tag) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              {tag}
+            </p>
+          ))
+        ) : ''}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import '../styles/recipe-card.css';
+import '../styles/default-font.css';
 
 function RecipeCard({ image, title, index, cardType }) {
   return (
