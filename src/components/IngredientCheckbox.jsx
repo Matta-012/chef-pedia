@@ -1,28 +1,58 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
 
-function IngredientCheckbox({ foodType, food, verifyCheckbox, i }) {
+function IngredientCheckbox({ foodType, food, isChecked, toggleFinishButton, i }) {
   const ONE = 1;
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(isChecked);
 
-  if (foodType === 'meal') {
+  const id = foodType === 'meals' ? food.idMeal : food.idDrink;
+
+  const toggleLocalStorage = () => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      if (!checked) {
+        inProgressRecipes[foodType][id] = [...inProgressRecipes[foodType][id], i];
+        saveLocalStorage('inProgressRecipes', inProgressRecipes);
+      } else {
+        inProgressRecipes[foodType][id] = inProgressRecipes[foodType][id]
+          .filter((oldIndex) => i !== oldIndex);
+        saveLocalStorage('inProgressRecipes', inProgressRecipes);
+      }
+    } else {
+      const newinProgressRecipes = {
+        meals: {},
+        cocktails: {},
+      };
+      newinProgressRecipes[foodType][id] = [i];
+      saveLocalStorage('inProgressRecipes', newinProgressRecipes);
+    }
+  };
+
+  const handleCheckboxChange = () => {
+    toggleFinishButton();
+    setChecked(!checked);
+    toggleLocalStorage();
+  };
+
+  const riskedIngredientStyle = { textDecoration: 'line-through' };
+
+  if (foodType === 'meals') {
     return (
       <label
         htmlFor={ `strIngredient${i}` }
-        data-testid="ingredient-step"
+        key={ food[`strIngredient${i}`] }
+        style={ checked ? riskedIngredientStyle : {} }
+        data-testid={ `${i - ONE}-ingredient-step` }
       >
         {food[`strIngredient${i}`]}
         {food[`strMeasure${i}`]}
         <input
           id={ `strIngredient${i}` }
-          data-testid={ `${i - ONE}-ingredient-name-and-measure` }
-          onClick={ (e) => {
-            verifyCheckbox(e);
-            setChecked(!checked);
-          } }
+          onClick={ handleCheckboxChange }
           className="ingredient-checkbox"
-          value={ checked }
+          defaultChecked={ checked }
           type="checkbox"
         />
       </label>
@@ -32,16 +62,17 @@ function IngredientCheckbox({ foodType, food, verifyCheckbox, i }) {
     <label
       htmlFor={ `strIngredient${i}` }
       key={ food[`strIngredient${i}`] }
-      data-testid="ingredient-step"
+      style={ checked ? { textDecoration: 'line-through' } : {} }
+      data-testid={ `${i - ONE}-ingredient-step` }
     >
       {food[`strIngredient${i}`]}
       {food[`strMeasure${i}`]}
       <input
         key={ i }
         id={ `strIngredient${i}` }
-        data-testid={ `${i - ONE}-ingredient-name-and-measure` }
-        onClick={ (e) => { verifyCheckbox(e); } }
+        onClick={ handleCheckboxChange }
         className="ingredient-checkbox"
+        defaultChecked={ checked }
         type="checkbox"
       />
     </label>
@@ -50,9 +81,10 @@ function IngredientCheckbox({ foodType, food, verifyCheckbox, i }) {
 
 IngredientCheckbox.propTypes = {
   i: PropTypes.number.isRequired,
+  isChecked: PropTypes.bool.isRequired,
   food: PropTypes.objectOf(PropTypes.any).isRequired,
   foodType: PropTypes.string.isRequired,
-  verifyCheckbox: PropTypes.func.isRequired,
+  toggleFinishButton: PropTypes.func.isRequired,
 };
 
 export default IngredientCheckbox;
