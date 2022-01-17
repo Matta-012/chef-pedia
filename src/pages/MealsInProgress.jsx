@@ -4,6 +4,9 @@ import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
 import FavoriteButton from '../components/FavoriteButton';
 import IngredientCheckbox from '../components/IngredientCheckbox';
+import GoBackTop from '../components/GoBackTop';
+import '../styles/default-font.css';
+import shareIcon from '../images/shareIcon.svg';
 
 function MealInProgress() {
   const { pathname } = useLocation();
@@ -99,33 +102,74 @@ function MealInProgress() {
   };
 
   return (
-    <main>
-      <img src={ strMealThumb } alt="comida" data-testid="recipe-photo" />
-      <h1 data-testid="recipe-title">{strMeal}</h1>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ copyText }
-      >
-        Manda no zap
+    <main className="font-wrapper">
+      <GoBackTop
+        pageName={strMeal}
+        btnClasses="p-4"
+      />
+      <img
+        src={ strMealThumb }
+        alt="comida"
+        data-testid="recipe-photo"
+        className="rounded-b-2xl phone-g:max-w-max-g mx-auto"
+      />
 
-      </button>
-      {copiedLink && <span data-testid="copied-link">Link copiado!</span>}
-      <FavoriteButton id={ id } food={ meal } foodType="meal" />
-      <span data-testid="recipe-category">{strCategory}</span>
-      <section>
+      <div className="w-11/12 mx-auto my-3 md:w-3/4 lg:max-w-[1024px]">
+        <div className="w-full flex flex-col items-center mb-8">
+          <h1
+            data-testid="recipe-title"
+            className="font-bold text-titles-text text-xl w-9/12 text-center"
+          >
+              {strMeal}
+          </h1>
+
+          <div className="mb-4">
+            <span data-testid="recipe-category">{strCategory}</span>
+          </div>
+
+          <div className="flex justify-center font-bold">
+            {copiedLink && <span
+              data-testid="copied-link"
+              className="mb-4"
+            >
+              Link copiado!
+            </span>}
+          </div>
+
+          <div className="w-1/5 flex justify-between">
+            <button
+              data-testid="share-btn"
+              type="button"
+              onClick={ () => { copyText(setCopiedLink); } }
+            >
+              <img src={shareIcon} alt="Ícone de compartilhar" />
+            </button>
+            <FavoriteButton id={ id } food={ meal } foodType="meal" />
+          </div>
+        </div>
+      </div>
+      
+      <section className="flex flex-col items-center mb-4">
         {getIngredientsList()}
       </section>
-      <p data-testid="instructions">{strInstructions}</p>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        style={ { position: 'fixed', bottom: '0px' } }
-        onClick={ endRecipe }
-        disabled={ !recipeFinished }
+
+      <p
+        data-testid="instructions"
+        className="text-center mx-2 mb-8 border border-gray-200 p-3 rounded-lg"
       >
-        Finalizar
-      </button>
+        {strInstructions}
+      </p>
+      <div className="w-full flex justify-center">
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          onClick={ endRecipe }
+          disabled={ !recipeFinished }
+          className="border border-login-bg text-login-bg rounded-md hover:bg-login-bg hover:text-white transition duration-200 bg-white py-2 w-11/12 tab:w-[745px] mb-6 mx-auto disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          Finalizar
+        </button>
+      </div>
     </main>
   );
 }
