@@ -4,6 +4,7 @@ import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
 import FavoriteButton from '../components/FavoriteButton';
 import IngredientCheckbox from '../components/IngredientCheckbox';
+import toggleFinishButton from '../helpers/foodInProgressHelpers';
 import GoBackTop from '../components/GoBackTop';
 import '../styles/default-font.css';
 import shareIcon from '../images/shareIcon.svg';
@@ -14,6 +15,7 @@ function MealInProgress() {
   const [meal, setMeal] = useState({});
   const [copiedLink, setCopiedLink] = useState(false);
   const [recipeFinished, setRecipeFinished] = useState(false);
+  const [markedIngredients, setMarkedIngredients] = useState([]);
 
   const history = useHistory();
 
@@ -22,20 +24,18 @@ function MealInProgress() {
       const fetchedMeal = await fetchMealById(id);
       setMeal(fetchedMeal);
     };
+    toggleFinishButton(setRecipeFinished);
     getMeal();
   }, [id]);
 
-  const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
-
-  const verifyCheckbox = () => {
-    const ingredients = document.getElementsByClassName('ingredient-checkbox');
-    const ingredientsArr = [];
-    for (let i = 0; i < ingredients.length; i += 1) {
-      ingredientsArr.push(ingredients[i].checked);
+  useEffect(() => {
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    if (inProgressRecipes) {
+      setMarkedIngredients(inProgressRecipes.meals[id]);
     }
-    const allDone = ingredientsArr.every((element) => element);
-    setRecipeFinished(allDone);
-  };
+  }, [id]);
+
+  const { strMealThumb, strMeal, strCategory, strInstructions } = meal;
 
   const getIngredientsList = () => {
     const ingredients = [];
@@ -47,7 +47,8 @@ function MealInProgress() {
             key={ meal[`strIngredient${i}`] }
             foodType="meal"
             food={ meal }
-            verifyCheckbox={ verifyCheckbox }
+            isChecked={ markedIngredients.includes(i) }
+            toggleFinishButton={ () => { toggleFinishButton(setRecipeFinished); } }
             i={ i }
           />,
         );
@@ -140,7 +141,7 @@ function MealInProgress() {
             <button
               data-testid="share-btn"
               type="button"
-              onClick={ () => { copyText(setCopiedLink); } }
+              onClick={ copyText }
             >
               <img src={shareIcon} alt="Ícone de compartilhar" />
             </button>
@@ -159,6 +160,7 @@ function MealInProgress() {
       >
         {strInstructions}
       </p>
+
       <div className="w-full flex justify-center">
         <button
           data-testid="finish-recipe-btn"

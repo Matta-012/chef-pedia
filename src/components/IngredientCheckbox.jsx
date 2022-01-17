@@ -46,15 +46,20 @@ function IngredientCheckbox({ foodType, food, isChecked, toggleFinishButton, i }
         style={ checked ? riskedIngredientStyle : {} }
         data-testid={ `${i - ONE}-ingredient-step` }
       >
-        {food[`strIngredient${i}`]}
-        {food[`strMeasure${i}`]}
         <input
           id={ `strIngredient${i}` }
           onClick={ handleCheckboxChange }
-          className="ingredient-checkbox"
+          className="ingredient-checkbox mr-1"
           defaultChecked={ checked }
           type="checkbox"
         />
+        <span className="font-bold">
+          {food[`strIngredient${i}`]}
+        </span>
+        {' - '}
+        <span className="font-bold">
+          {food[`strMeasure${i}`]}
+        </span>
       </label>
     );
   }
@@ -65,16 +70,21 @@ function IngredientCheckbox({ foodType, food, isChecked, toggleFinishButton, i }
       style={ checked ? { textDecoration: 'line-through' } : {} }
       data-testid={ `${i - ONE}-ingredient-step` }
     >
-      {food[`strIngredient${i}`]}
-      {food[`strMeasure${i}`]}
       <input
         key={ i }
         id={ `strIngredient${i}` }
         onClick={ handleCheckboxChange }
-        className="ingredient-checkbox"
+        className="ingredient-checkbox mr-1"
         defaultChecked={ checked }
         type="checkbox"
       />
+      <span className="font-bold">
+          {food[`strIngredient${i}`]}
+        </span>
+        {' - '}
+        <span className="font-bold">
+          {food[`strMeasure${i}`]}
+        </span>
     </label>
   );
 }
