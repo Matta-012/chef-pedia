@@ -57,32 +57,38 @@ export default function FavoritesRecipes() {
 
       <div>
         <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3 mx-4 md:mx-auto md:w-3/4 lg:w-3/5">
-          <button
-            type="button"
-            data-testid="filter-by-all-btn"
-            onClick={() => setRecipeByType(favoriteRecipes)}
-            className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
-          >
-            All
-          </button>
+          <div className="mx-auto">
+            <button
+              type="button"
+              data-testid="filter-by-all-btn"
+              onClick={() => setRecipeByType(favoriteRecipes)}
+              className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+            >
+              All
+            </button>
+          </div>
 
-          <button
-            type="button"
-            data-testid="filter-by-food-btn"
-            onClick={() => filterByType("comida")}
-            className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
-          >
-            Food
-          </button>
+          <div className="mx-auto">
+            <button
+              type="button"
+              data-testid="filter-by-food-btn"
+              onClick={() => filterByType("comida")}
+              className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+            >
+              Food
+            </button>
+          </div>
 
-          <button
-            type="button"
-            data-testid="filter-by-drink-btn"
-            onClick={() => filterByType("bebida")}
-            className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
-          >
-            Drinks
-          </button>
+          <div className="mx-auto">
+            <button
+              type="button"
+              data-testid="filter-by-drink-btn"
+              onClick={() => filterByType("bebida")}
+              className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+            >
+              Drinks
+            </button>
+          </div>
         </div>
       </div>
 
