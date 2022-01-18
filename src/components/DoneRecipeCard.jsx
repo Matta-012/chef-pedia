@@ -18,6 +18,7 @@ function DoneRecipeCard({
   id,
 }) {
   const [isCopied, setIsCopied] = useState(false);
+  const hostname = window.location.hostname;
 
   return (
     <div className="recipe-card bg-login-bg text-white text-center rounded-xl border border-gray-300 pb-3">
@@ -65,7 +66,7 @@ function DoneRecipeCard({
         type="button"
         src={ share }
         data-testid={ `${index}-horizontal-share-btn` }
-        onClick={ () => copyRecipeDoneText(setIsCopied, type, id) }
+        onClick={ () => copyRecipeDoneText(setIsCopied, type, id, hostname) }
         className="mt-2"
       >
         <img src={ share } alt="Ícone de compartilhar" />
