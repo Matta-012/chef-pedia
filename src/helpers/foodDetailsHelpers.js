@@ -24,8 +24,8 @@ const copyText = (setCopiedLink) => {
   }, INTERVAL_TIME);
 };
 
-const copyRecipeDoneText = (setCopiedLink, type, id) => {
-  const fullPathName = `http://localhost:3000/${type}s/${id}`;
+const copyRecipeDoneText = (setCopiedLink, type, id, hostname) => {
+  const fullPathName = `http://${hostname}/${type}s/${id}`;
   navigator.clipboard.writeText(fullPathName);
   setCopiedLink(true);
   const INTERVAL_TIME = 3000;
