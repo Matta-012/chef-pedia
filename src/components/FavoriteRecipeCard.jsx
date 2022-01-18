@@ -18,6 +18,7 @@ function FavoriteRecipeCard({
   deleteFromLocalStorage,
 }) {
   const [isCopied, setIsCopied] = useState(false);
+  const hostname = window.location.hostname;
 
   return (
     <div className="recipe-card text-white bg-login-bg text-center rounded-xl border border-gray-300 pb-3">
@@ -71,7 +72,7 @@ function FavoriteRecipeCard({
           type="button"
           src={ share }
           data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ () => copyRecipeDoneText(setIsCopied, type, id) }
+          onClick={ () => copyRecipeDoneText(setIsCopied, type, id, hostname) }
         >
           <img src={ share } alt="ícone de compartilhar" />
         </button>
