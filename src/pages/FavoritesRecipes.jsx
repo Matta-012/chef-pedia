@@ -38,7 +38,7 @@ export default function FavoritesRecipes() {
     }
   };
 
-  if (!recipeByType.length > 0) {
+  if (!recipeByType || !recipeByType.length > 0) {
     return <NoneFavoriteRecipes />;
   }
 
