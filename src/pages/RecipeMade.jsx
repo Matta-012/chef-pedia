@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import GoBackTop from '../components/GoBackTop.jsx';
 import DoneRecipeCard from '../components/DoneRecipeCard';
+import NoneRecipesMade from '../components/NoneRecipesMade';
 import { getLocalStorage } from '../helpers/manageLocalStorage';
+import '../styles/default-font.css';
 
 export default function RecipeMade() {
   const doneRecipes = getLocalStorage('doneRecipes');
@@ -16,35 +19,59 @@ export default function RecipeMade() {
     setRecipeByType(filteredRecipe);
   };
 
+  if (!recipeByType) {
+    return <NoneRecipesMade />;
+  }
+
   return (
-    <div>
-      <Header />
-      <h1 data-testid="page-title">Receitas Feitas</h1>
-      <div>
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => setRecipeByType(doneRecipes) }
-        >
-          All
-        </button>
+    <div className="font-wrapper">
+      <section className="flex justify-between">
+        <GoBackTop
+          pageName="Receitas Feitas"
+          btnClasses="p-4"
+          dataTest="page-title"
+        />
+        <div className="mr-5 md:mr-0">
+          <Header />
+        </div>
+      </section>
 
-        <button
-          type="button"
-          data-testid="filter-by-food-btn"
-          onClick={ () => filterByType('comida') }
-        >
-          Food
-        </button>
+      <div className="grid grid-cols-2 py-6 gap-y-2 sm:grid-cols-3 mx-4 md:mx-auto md:w-3/4 lg:w-3/5">
+        <div className="mx-auto">
+          <button
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => setRecipeByType(doneRecipes) }
+            className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+          >
+            All
+          </button>
+        </div>
 
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => filterByType('bebida') }
-        >
-          Drinks
-        </button>
+        <div className="mx-auto">
+          <button
+            type="button"
+            data-testid="filter-by-food-btn"
+            onClick={ () => filterByType('comida') }
+            className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+          >
+            Food
+          </button>
+        </div>
 
+        <div className="mx-auto">
+          <button
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => filterByType('bebida') }
+            className="border border-login-bg text-login-bg w-40 rounded-xl hover:bg-login-bg hover:text-white transition duration-200 drink-category-btn"
+          >
+            Drinks
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-5 px-4 mb-6 sm:grid-cols-3 lg:grid-cols-4">
         {recipeByType
           ? (
             recipeByType.map((doneRecipe, index) => (
@@ -61,8 +88,7 @@ export default function RecipeMade() {
                 area={ doneRecipe.area }
                 alcoholicOrNot={ doneRecipe.alcoholicOrNot }
               />
-            ))
-          ) : []}
+            ))) : <NoneRecipesMade />}
       </div>
     </div>
   );
