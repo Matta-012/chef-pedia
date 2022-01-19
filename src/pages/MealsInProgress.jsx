@@ -28,7 +28,7 @@ function MealInProgress() {
     toggleFinishButton(setRecipeFinished);
     getMeal();
   }, [id]);
-
+  
   useEffect(() => {
     const inProgressRecipes = getLocalStorage('inProgressRecipes');
     if (inProgressRecipes) {
