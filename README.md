@@ -1,4 +1,5 @@
 # Chef Pedia
+### Para conferir a aplicação em funcionamento, acesse: https://chefpedia.vercel.app/
 
 <div style="width: 1024px">
   <div style="display: flex">
@@ -9,7 +10,7 @@
 
 > Chef Pedia é uma aplicação web responsiva onde o usuário pode pesquisar receitas e drinks, iniciar uma receita ou drink, favoritar, compartilhar o link com os amigos e até ver um vídeo demonstrativo de como fazer a receita.
 
-### Ajustes e melhorias
+### ⚙️ Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
