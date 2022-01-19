@@ -122,6 +122,6 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 ## 📝 Licença
 
-Este projeto foi desenvolvido durante o curso de formação web fullstack da Trybe, sendo o último projeto do módulo de frontend, colocando em prática todos os conhecimentos aprendidos desde o início do curso. Sendo assim, este projeto não está licenciado e não possui fins lucrativos, sendo feito apenas para fins de estudo dos colaborares.
+Este projeto foi desenvolvido durante o curso de formação web fullstack da [Trybe](https://www.betrybe.com/), sendo o último projeto do módulo de frontend, colocando em prática todos os conhecimentos aprendidos desde o início do curso. Sendo assim, este projeto não está licenciado e não possui fins lucrativos, sendo feito apenas para fins de estudo dos colaborares.
 
 [⬆ Voltar ao topo](#chef-pedia)<br>
