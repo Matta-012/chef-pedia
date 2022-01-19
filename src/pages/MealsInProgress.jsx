@@ -45,7 +45,7 @@ function MealInProgress() {
         ingredients.push(
           <IngredientCheckbox
             key={ meal[`strIngredient${i}`] }
-            foodType="meal"
+            foodType="meals"
             food={ meal }
             isChecked={ markedIngredients.includes(i) }
             toggleFinishButton={ () => { toggleFinishButton(setRecipeFinished); } }
