@@ -8,6 +8,7 @@ import toggleFinishButton from '../helpers/foodInProgressHelpers';
 import GoBackTop from '../components/GoBackTop';
 import '../styles/default-font.css';
 import shareIcon from '../images/shareIcon.svg';
+import Footer from '../components/Footer';
 
 function MealInProgress() {
   const { pathname } = useLocation();
@@ -27,7 +28,7 @@ function MealInProgress() {
     toggleFinishButton(setRecipeFinished);
     getMeal();
   }, [id]);
-
+  
   useEffect(() => {
     const inProgressRecipes = getLocalStorage('inProgressRecipes');
     if (inProgressRecipes) {
@@ -45,7 +46,7 @@ function MealInProgress() {
         ingredients.push(
           <IngredientCheckbox
             key={ meal[`strIngredient${i}`] }
-            foodType="meal"
+            foodType="meals"
             food={ meal }
             isChecked={ markedIngredients.includes(i) }
             toggleFinishButton={ () => { toggleFinishButton(setRecipeFinished); } }
@@ -101,6 +102,23 @@ function MealInProgress() {
 
     history.push('/receitas-feitas');
   };
+
+  const doneRecipes = getLocalStorage('doneRecipes');
+
+  if (doneRecipes) {
+    const doneRecipe = doneRecipes.some(recipe => recipe.id === id);
+    if (doneRecipe) {
+      return (
+        <div className="container">
+          <GoBackTop pageName="Receita feita"/>
+          <h1>
+            Essa receita já foi feita.
+          </h1>
+          <Footer />
+        </div>
+      )
+    }
+  }
 
   return (
     <main className="font-wrapper">
