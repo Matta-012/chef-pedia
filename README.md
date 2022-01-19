@@ -124,4 +124,4 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 Este projeto foi desenvolvido durante o curso de formação web fullstack da Trybe, sendo o último projeto do módulo de frontend, colocando em prática todos os conhecimentos aprendidos desde o início do curso. Sendo assim, este projeto não está licenciado e não possui fins lucrativos, sendo feito apenas para fins de estudo dos colaborares.
 
-[⬆ Voltar ao topo](https://github.com/Matta-012/chef-pedia/edit/main/README.md)<br>
+[⬆ Voltar ao topo](https://github.com/Matta-012/chef-pedia/blob/main/README.md)<br>
