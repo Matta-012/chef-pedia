@@ -75,7 +75,7 @@ function DoneRecipeCard({
         ? (
           tags.map((tag) => (
             <p
-              key={ index }
+              key={ `${tag}${index}` }
               data-testid={ `${index}-${tag}-horizontal-tag` }
             >
               {tag}

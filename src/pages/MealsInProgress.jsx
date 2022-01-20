@@ -75,7 +75,7 @@ function MealInProgress() {
   const endRecipe = () => {
     const doneRecipes = getLocalStorage('doneRecipes');
     const { strArea, strTags } = meal;
-    const strNewTags = strTags.split(',');
+    const strNewTags = strTags && strTags.split(',');
 
     const recipeObj = {
       id,
