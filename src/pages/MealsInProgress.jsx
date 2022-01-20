@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMealById } from '../helpers/fetchesFromAPI';
 import { getLocalStorage, saveLocalStorage } from '../helpers/manageLocalStorage';
@@ -6,6 +6,7 @@ import FavoriteButton from '../components/FavoriteButton';
 import IngredientCheckbox from '../components/IngredientCheckbox';
 import toggleFinishButton from '../helpers/foodInProgressHelpers';
 import GoBackTop from '../components/GoBackTop';
+import AppContext from '../context/AppContext';
 import '../styles/default-font.css';
 import shareIcon from '../images/shareIcon.svg';
 import Footer from '../components/Footer';
@@ -17,6 +18,7 @@ function MealInProgress() {
   const [copiedLink, setCopiedLink] = useState(false);
   const [recipeFinished, setRecipeFinished] = useState(false);
   const [markedIngredients, setMarkedIngredients] = useState([]);
+  const { handleRoute } = useContext(AppContext);
 
   const history = useHistory();
 
@@ -110,10 +112,22 @@ function MealInProgress() {
     if (doneRecipe) {
       return (
         <div className="container">
-          <GoBackTop pageName="Receita feita"/>
-          <h1>
-            Essa receita já foi feita.
-          </h1>
+          <GoBackTop pageName="Receita feita" btnClasses="p-3" />
+          <section className="flex flex-col justify-center items-center h-screen">
+            <h1 className="text-3xl text-center mb-4">
+              Essa receita já foi feita.
+            </h1>
+            <div className="mx-auto">
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={() => handleRoute('/comidas')}
+                className="border border-login-bg text-login-bg w-60 text-xl h-10 rounded-xl meal-category-btn hover:bg-login-bg hover:text-white transition duration-200"
+              >
+                Novas receitas
+              </button>
+            </div>
+          </section>
           <Footer />
         </div>
       )
